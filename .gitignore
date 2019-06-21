@@ -1,1 +1,5 @@
+# Node modules for the application
 node_modules
+
+# Webpack bundle
+client/dist/bundle.js
