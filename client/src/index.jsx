@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import UserStocksList from './components/UserStocksList.jsx.js';
+import UserStocksList from './components/UserStocksList.jsx';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -18,10 +18,12 @@ class App extends React.Component {
   }
 
   render () {
-    return (<div>
+    return (
+    <div>
       <h1>Your Stocks</h1>
-      <UserStocksList items={this.state.items}/>
-    </div>)
+      <UserStocksList purchases={this.state.purchases}/>
+    </div>
+    )
   }
 }
 
