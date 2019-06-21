@@ -1,35 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
-import List from './components/List.jsx';
+import UserStocksList from './components/UserStocksList.jsx';
+import ComparisonList from './components/ComparisonList.jsx';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      items: []
+      purchases: [],
     }
   }
 
   componentDidMount() {
-    $.ajax({
-      url: '/items', 
-      success: (data) => {
-        this.setState({
-          items: data
-        })
-      },
-      error: (err) => {
-        console.log('err', err);
-      }
+    axios.get('http://localhost:3000/purchases', (err, purchases) => {
+      this.setState({purchases: purchases});
     });
   }
 
   render () {
-    return (<div>
-      <h1>Item List</h1>
-      <List items={this.state.items}/>
-    </div>)
+    return (
+      <div>
+      <h1>Stock Tracker</h1>
+        <div id="stock-comparison-module">
+          <div id="left-module">
+            <UserStocksList purchases={this.state.purchases}/>
+          </div>
+          <div id="right-module">
+            <ComparisonList />
+          </div>
+        </div>
+      </div>
+    )
   }
 }
 
