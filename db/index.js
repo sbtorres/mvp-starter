@@ -2,9 +2,9 @@ var mysql = require('mysql');
 
 var connection = mysql.createConnection({
   host     : 'localhost',
-  user     : 'root',
-  password : 'FILL_ME_IN',
-  database : 'test'
+  user     : 'scotttorres',
+  password : '',
+  database : 'stock-tracker'
 });
 
 var selectAll = function(callback) {
