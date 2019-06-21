@@ -4,14 +4,15 @@ var db = require('../db');
 
 var app = express();
 
+app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.get('/purchases', function (req, res) {
-  db.getPurchases(function(err, data) {
+  db.getPurchases(req.body, function(err, purchases) {
     if(err) {
       res.sendStatus(500);
     } else {
-      res.json(data);
+      res.status(200).send(purchases);
     }
   });
 });
