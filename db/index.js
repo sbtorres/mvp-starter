@@ -7,8 +7,9 @@ var connection = mysql.createConnection({
   database : 'stock-tracker'
 });
 
-var selectAll = function(callback) {
-  connection.query('SELECT * FROM items', function(err, results, fields) {
+var getPurchases = function(callback, userId) {
+  const query = 'SELECT * FROM purchases WHERE user_id = ' + connection.escape(userId);
+  connection.query(query, function(err, results) {
     if(err) {
       callback(err, null);
     } else {
@@ -17,4 +18,4 @@ var selectAll = function(callback) {
   });
 };
 
-module.exports.selectAll = selectAll;
+module.exports = { getPurchases };
