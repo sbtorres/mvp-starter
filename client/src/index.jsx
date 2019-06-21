@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import MarketOverview from './components/MarketOverview.jsx'
 import UserStocksList from './components/UserStocksList.jsx';
 import ComparisonList from './components/ComparisonList.jsx';
 import axios from 'axios';
@@ -9,19 +10,35 @@ class App extends React.Component {
     super(props);
     this.state = { 
       purchases: [],
+      marketData: [],
     }
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/purchases', (err, purchases) => {
-      this.setState({purchases: purchases});
-    });
+    axios.get('http://localhost:3000/purchases')
+      .then((purchases) => {
+        this.setState({purchases: purchases});
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
+    axios.get('https://api.iextrading.com/1.0/tops?symbols=voo,qqq,dia') 
+      .then((marketData) => {
+        this.setState({marketData: marketData.data});
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   render () {
     return (
       <div>
       <h1>Stock Tracker</h1>
+        <div id="market-overview-panel">
+          <MarketOverview marketData={this.state.marketData}/>
+        </div>
         <div id="stock-comparison-module">
           <div id="left-module">
             <UserStocksList purchases={this.state.purchases}/>

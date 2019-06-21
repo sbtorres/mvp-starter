@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
   database : 'stock-tracker'
 });
 
-var getPurchases = function(callback, userId) {
+var getPurchases = function(userId, callback) {
   const query = 'SELECT * FROM purchases WHERE user_id = ' + connection.escape(userId);
   connection.query(query, function(err, results) {
     if(err) {
