@@ -4,7 +4,7 @@ var db = require('../db');
 
 var app = express();
 
-app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(express.static(__dirname + '/../client/dist'));
 
 app.get('/purchases', function (req, res) {
   db.getPurchases(function(err, data) {
