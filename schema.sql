@@ -1,14 +1,27 @@
-DROP DATABASE IF EXISTS test;
+DROP DATABASE IF EXISTS stock_tracker;
 
-CREATE DATABASE test;
+CREATE DATABASE stock_tracker;
 
-USE test;
+USE stock_tracker;
 
-CREATE TABLE items (
-  id int NOT NULL AUTO_INCREMENT,
-  quantity integer NOT NULL,
-  description varchar(50) NOT NULL,
+CREATE TABLE users (
+  id             INT NOT NULL AUTO_INCREMENT,
+  username       VARCHAR (50) NOT NULL,
+  first_name     VARCHAR (50) NOT NULL,
+  last_name      VARCHAR (50) NOT NULL,
+  email          VARCHAR (100) NOT NULL,
   PRIMARY KEY (ID)
+);
+
+CREATE TABLE purchases (
+  id             INT NOT NULL AUTO_INCREMENT,
+  user_id        INT NOT NULL,
+  num_of_shares  INT NOT NULL, 
+  share_price    NUMERIC(10, 4) NOT NULL,
+  date_purchased DATE NOT NULL,
+  sp500_price    NUMERIC(10, 4) NOT NULL,
+  nasdaq_price   NUMERIC(10, 4) NOT NULL,
+  dow_price      NUMERIC(10, 4) NOT NULL,
 );
 
 /*  Execute this file from the command line by typing:
