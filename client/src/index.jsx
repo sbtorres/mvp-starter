@@ -1,34 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
-import List from './components/List.jsx';
+import UserStocksList from './components/UserStocksList.jsx.js';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      items: []
+      purchases: [],
     }
   }
 
   componentDidMount() {
-    $.ajax({
-      url: '/items', 
-      success: (data) => {
-        this.setState({
-          items: data
-        })
-      },
-      error: (err) => {
-        console.log('err', err);
-      }
+    axios.get('http://localhost:3000/purchases', (err, purchases) => {
+      this.setState({purchases: purchases});
     });
   }
 
   render () {
     return (<div>
-      <h1>Item List</h1>
-      <List items={this.state.items}/>
+      <h1>Your Stocks</h1>
+      <UserStocksList items={this.state.items}/>
     </div>)
   }
 }
