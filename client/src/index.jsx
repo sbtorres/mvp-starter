@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import UserStocksList from './components/UserStocksList.jsx';
+import ComparisonList from './components/ComparisonList.jsx';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -19,10 +20,17 @@ class App extends React.Component {
 
   render () {
     return (
-    <div>
-      <h1>Your Stocks</h1>
-      <UserStocksList purchases={this.state.purchases}/>
-    </div>
+      <div>
+      <h1>Stock Tracker</h1>
+        <div id="stock-comparison-module">
+          <div id="left-module">
+            <UserStocksList purchases={this.state.purchases}/>
+          </div>
+          <div id="right-module">
+            <ComparisonList />
+          </div>
+        </div>
+      </div>
     )
   }
 }
