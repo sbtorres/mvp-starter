@@ -9,13 +9,26 @@ class App extends React.Component {
     super(props);
     this.state = { 
       purchases: [],
+      marketData: [],
     }
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/purchases', (err, purchases) => {
-      this.setState({purchases: purchases});
-    });
+    axios.get('http://localhost:3000/purchases')
+      .then((purchases) => {
+        this.setState({purchases: purchases});
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
+    axios.get('https://api.iextrading.com/1.0/tops?symbols=dia,voo,qqq') 
+      .then((marketData) => {
+        this.setState({marketData: marketData.data});
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   render () {
