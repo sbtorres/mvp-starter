@@ -20,7 +20,7 @@ const StyledStockModalContainer = styled.div`
   font-family: Roboto, Helvetica, sans-serif;
   color: #484848;
   font-size: 14px;
-  width: 23%;
+  width: 30%;
   height: auto;
   top:50%;
   left:50%;
@@ -36,7 +36,9 @@ const StyledForm = styled.form`
 
 const StyledLabel = styled.label`
   display: flex;
+  justify-content: flex-end;
   width: 50%;
+  padding-right: 15px;
 `;
 
 class StockInputForm extends React.Component {
@@ -62,6 +64,10 @@ class StockInputForm extends React.Component {
           <StyledForm>
             <StyledLabel>Price per Share</StyledLabel>
             <input type="number" />
+          </StyledForm>
+          <StyledForm>
+            <StyledLabel>Date Purchased (YYYY-MM-DD)</StyledLabel>
+            <input type="text" />
           </StyledForm>
         </StyledStockModalContainer>
       </StyledContainer>
