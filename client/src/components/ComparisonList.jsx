@@ -1,21 +1,18 @@
 import React from 'react';
 import Comparison from './Comparison.jsx'
 
-class ComparisonList extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
-  render() {
-    return (
-      <div style={{"width": "100%"}}>
-        <h2>Comparisons</h2>
-        <Comparison purchases={this.props.purchases} marketData={this.props.marketData}/>
-      </div>
-    )
-  }
-}
+const ComparisonList = (props) => (
+  <div style={{"width": "100%"}}>
+    <h2>Comparisons</h2>
+    <div className="header">
+      <h4 className="right-header-col-1">vs. S&amp;P 500</h4>
+      <h4 className="right-header-col-2">vs. NASDAQ</h4>
+      <h4 className="right-header-col-3">vs. DOW</h4>
+    </div>
+    <div className="comparison-list">
+      <Comparison purchases={props.purchases} marketData={props.marketData}/>
+    </div>
+  </div>
+)
 
 export default ComparisonList;
