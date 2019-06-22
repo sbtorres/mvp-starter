@@ -41,16 +41,36 @@ const StyledLabel = styled.label`
   padding-right: 15px;
 `;
 
+const StyledCloseButton = styled.button`
+  display: block;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 36px;
+  border-width: 0px;
+  color: #fff;
+`;
+
 class StockInputForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {};
+    
+    this.onCloseButtonClick = this.onCloseButtonClick.bind(this);
+  }
+
+  onCloseButtonClick() {
+    const { hideStockPurchaseModal } = this.props;
+    hideStockPurchaseModal();
   }
 
   render() {
     return(
       <StyledContainer isVisible={this.props.isVisible}>
+        <StyledCloseButton onClick={this.onCloseButtonClick}>X</StyledCloseButton>
         <StyledStockModalContainer>
           <h4>What'd you buy?</h4>
           <StyledForm>
