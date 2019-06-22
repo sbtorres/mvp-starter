@@ -9,7 +9,7 @@ const UserStock = (props) => (
         { props.purchase.num_of_shares }
       </div>
       <div className="user-share-price">
-        { props.purchase.share_price }
+        { '$' + props.purchase.share_price.toFixed(2) }
       </div>
   </div>
 )
