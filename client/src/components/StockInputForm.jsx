@@ -76,6 +76,7 @@ class StockInputForm extends React.Component {
     
     this.handleClickOutsideModal = this.handleClickOutsideModal.bind(this);
     this.onUserTextInput = this.onUserTextInput.bind(this);
+    this.handlePurchaseSubmission = this.handlePurchaseSubmission.bind(this);
   }
 
   handleClickOutsideModal(event) {
@@ -93,6 +94,17 @@ class StockInputForm extends React.Component {
     this.setState({
       [name]: target.value,
     });
+  }
+
+  handlePurchaseSubmission() {
+    const { handleUserStockInput } = this.props;
+    handleUserStockInput(this.state);
+    this.state = {
+      stock_ticker: '',
+      num_of_shares: '',
+      share_price: '',
+      date_purchased: '',
+    }
   }
 
   render() {
@@ -118,7 +130,7 @@ class StockInputForm extends React.Component {
             <input name="date_purchased" type="text" onChange={this.onUserTextInput}/>
           </StyledForm>
           <div style={{"display": "flex", "justifyContent": "center", "paddingTop": "10px"}}>
-            <StyledPurchaseButton>Add Purchase!</StyledPurchaseButton>
+            <StyledPurchaseButton onClick={this.handlePurchaseSubmission}>Add Purchase!</StyledPurchaseButton>
           </div>
         </StyledStockModalContainer>
       </StyledContainer>
