@@ -57,9 +57,11 @@ class StockInputForm extends React.Component {
   constructor(props) {
     super(props);
 
+    this.ref = React.createRef();
     this.state = {};
     
     this.onCloseButtonClick = this.onCloseButtonClick.bind(this);
+    this.handleClickOutsideModal = this.handleClickOutsideModal.bind(this);
   }
 
   onCloseButtonClick() {
@@ -67,11 +69,20 @@ class StockInputForm extends React.Component {
     hideStockPurchaseModal();
   }
 
+  handleClickOutsideModal(event) {
+    const isOutside = !this.ref.current.contains(event.target);
+    const { hideStockPurchaseModal } = this.props;
+
+    if (isOutside) {
+      hideStockPurchaseModal(false);
+    }
+  }
+
   render() {
     return(
-      <StyledContainer isVisible={this.props.isVisible}>
+      <StyledContainer onClick={this.handleClickOutsideModal} isVisible={this.props.isVisible}>
         <StyledCloseButton onClick={this.onCloseButtonClick}>X</StyledCloseButton>
-        <StyledStockModalContainer>
+        <StyledStockModalContainer ref={this.ref}>
           <h4>What'd you buy?</h4>
           <StyledForm>
             <StyledLabel>Stock Ticker</StyledLabel>
