@@ -98,13 +98,14 @@ class StockInputForm extends React.Component {
 
   handlePurchaseSubmission() {
     const { handleUserStockInput } = this.props;
-    handleUserStockInput(this.state);
-    this.state = {
+    const currentState = this.state;
+    handleUserStockInput(currentState);
+    this.setState({
       stock_ticker: '',
       num_of_shares: '',
       share_price: '',
       date_purchased: '',
-    }
+    });
   }
 
   render() {
@@ -113,21 +114,41 @@ class StockInputForm extends React.Component {
         <StyledCloseButton>X</StyledCloseButton>
         <StyledStockModalContainer ref={this.ref}>
           <h3>What'd you buy?</h3>
-          <StyledForm>
+          <StyledForm className="stock-purchase-form">
             <StyledLabel>Stock Ticker</StyledLabel>
-            <input name="stock_ticker" type="text" onChange={this.onUserTextInput}/>
+            <input 
+              name="stock_ticker" 
+              value={this.state.stock_ticker} 
+              type="text" 
+              onChange={this.onUserTextInput}
+            />
           </StyledForm>
-          <StyledForm>
+          <StyledForm className="stock-purchase-form">
             <StyledLabel>Number of Shares</StyledLabel>
-            <input name="num_of_shares" type="text" onChange={this.onUserTextInput}/>
+            <input 
+              name="num_of_shares" 
+              value={this.state.num_of_shares} 
+              type="text" 
+              onChange={this.onUserTextInput}
+            />
           </StyledForm>
-          <StyledForm>
+          <StyledForm className="stock-purchase-form">
             <StyledLabel>Price per Share</StyledLabel>
-            <input name="share_price" type="text" onChange={this.onUserTextInput}/>
+            <input 
+              name="share_price" 
+              value={this.state.share_price} 
+              type="text" 
+              onChange={this.onUserTextInput}
+            />
           </StyledForm>
-          <StyledForm>
+          <StyledForm className="stock-purchase-form">
             <StyledLabel>Date Purchased (YYYY-MM-DD)</StyledLabel>
-            <input name="date_purchased" type="text" onChange={this.onUserTextInput}/>
+            <input 
+              name="date_purchased" 
+              value={this.state.date_purchased} 
+              type="text" 
+              onChange={this.onUserTextInput}
+            />
           </StyledForm>
           <div style={{"display": "flex", "justifyContent": "center", "paddingTop": "10px"}}>
             <StyledPurchaseButton onClick={this.handlePurchaseSubmission}>Add Purchase!</StyledPurchaseButton>

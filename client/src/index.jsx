@@ -62,7 +62,17 @@ class App extends React.Component {
   }
 
   handleUserStockInput(submittedPurchase) {
-    console.log(submittedPurchase);
+    axios.get('https://api.iextrading.com/1.0/tops/last?symbols=voo,qqq,dia')
+      .then((indexData) => {
+        submittedPurchase.sp500_price = indexData.data[0].price.toString();
+        submittedPurchase.nasdaq_price = indexData.data[1].price.toString();
+        submittedPurchase.dow_price = indexData.data[2].price.toString();
+        submittedPurchase.stock_ticker = submittedPurchase.stock_ticker.toUpperCase();
+        console.log(submittedPurchase);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   render () {
