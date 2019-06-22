@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MarketOverview from './components/MarketOverview.jsx'
+import MarketOverview from './components/MarketOverview.jsx';
 import UserStocksList from './components/UserStocksList.jsx';
 import ComparisonList from './components/ComparisonList.jsx';
 import StockInputForm from './components/StockInputForm.jsx';
@@ -12,6 +12,7 @@ class App extends React.Component {
     this.state = { 
       purchases: [],
       marketData: [],
+      stockPurchaseModalIsVisible: false,
     }
   }
 
@@ -61,7 +62,7 @@ class App extends React.Component {
           </div>
         </div>
         <div>
-          <StockInputForm />
+          <StockInputForm isVisible={this.state.stockPurchaseModalIsVisible}/>
         </div>
       </div>
     )
