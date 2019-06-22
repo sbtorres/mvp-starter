@@ -2,6 +2,11 @@ body {
   background-color: #bdbfc1;
 }
 
+h2 {
+  display: flex;
+  justify-content: center;
+}
+
 #index-fund-list {
   display: flex;
   flex-direction: row;
@@ -40,6 +45,52 @@ body {
   flex-direction: column;
 }
 
+.header {
+  display: flex;
+  font-size: 20px;
+  color: #000;
+  margin: 10px 5px;
+  height: 30px;
+  align-items: center;
+}
+
+.left-header-col-1 {
+  display: flex;
+  width: 50%;
+  padding-left: 15px;
+}
+
+.left-header-col-2 {
+  display: flex;
+  width: 30%;
+  justify-content: center;
+}
+
+.left-header-col-3 {
+  display: flex;
+  width: 20%;
+  justify-content: center;
+}
+
+.right-header-col-1 {
+  display: flex;
+  width: 33.33%;
+  padding-left: 15px;
+  justify-content: center;
+}
+
+.right-header-col-2 {
+  display: flex;
+  width: 33.33%;
+  justify-content: center;
+}
+
+.right-header-col-3 {
+  display: flex;
+  width: 33.33%;
+  justify-content: center;
+}
+
 .user-stock {
   display: flex;
   font-size: 16px;
@@ -52,15 +103,16 @@ body {
 .user-stock-ticker {
   display: flex;
   color: #005ff7;
-  width: 70%;
+  width: 50%;
   height: 20px;
   padding-left: 15px;
 }
+
 .user-num-shares {
   display: flex;
   color: #000;
   font-size: 16px;
-  width: 15%;
+  width: 30%;
   justify-content: center;
 }
 
@@ -68,7 +120,7 @@ body {
   display: flex;
   color: #008000;
   font-size: 16px;
-  width: 15%;
+  width: 20%;
   justify-content: center;
 }
 
@@ -78,9 +130,9 @@ body {
   justify-content: center;
 }
 
-.comparison-list {
+.comparison {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
 }
 
 .comparison-row{
