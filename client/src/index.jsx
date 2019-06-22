@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import MarketOverview from './components/MarketOverview.jsx'
 import UserStocksList from './components/UserStocksList.jsx';
 import ComparisonList from './components/ComparisonList.jsx';
+import StockInputForm from './components/StockInputForm.jsx';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -58,6 +59,9 @@ class App extends React.Component {
           <div id="right-module">
             {this.state.marketData.length > 1 ? ComparisonData : (<div></div>)}
           </div>
+        </div>
+        <div>
+          <StockInputForm />
         </div>
       </div>
     )
