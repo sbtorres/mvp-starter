@@ -17,6 +17,7 @@ class App extends React.Component {
 
     this.handleStockPurchaseClick = this.handleStockPurchaseClick.bind(this);
     this.hideStockPurchaseModal = this.hideStockPurchaseModal.bind(this);
+    this.handleUserStockInput = this.handleUserStockInput.bind(this);
   }
 
   componentDidMount() {
@@ -60,6 +61,10 @@ class App extends React.Component {
     });
   }
 
+  handleUserStockInput(submittedPurchase) {
+    console.log(submittedPurchase);
+  }
+
   render () {
     const ComparisonData = (<ComparisonList purchases={this.state.purchases} marketData={this.state.marketData}/>)
     return (
@@ -80,7 +85,11 @@ class App extends React.Component {
           <button onClick={this.handleStockPurchaseClick}>Add A Stock!</button>
         </div>
         <div>
-          <StockInputForm hideStockPurchaseModal={this.hideStockPurchaseModal} isVisible={this.state.stockPurchaseModalIsVisible}/>
+          <StockInputForm
+            handleUserStockInput={this.handleUserStockInput}
+            hideStockPurchaseModal={this.hideStockPurchaseModal}
+            isVisible={this.state.stockPurchaseModalIsVisible}
+          />
         </div>
       </div>
     )
