@@ -5,7 +5,7 @@ const UserStocksList = (props) => (
   <div>
     <h2> Your Stock Holdings: </h2>
     You own { props.purchases.length } stocks.
-    { props.purchases.map(item => <UserStock purchase={purchase}/>)}
+    { props.purchases.map(purchase => <UserStock purchase={purchase}/>)}
   </div>
 )
 

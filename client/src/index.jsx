@@ -15,9 +15,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/purchases')
+    axios.get('http://localhost:3000/purchases/1')
       .then((purchases) => {
-        this.setState({purchases: purchases});
+        this.setState({purchases: purchases.data});
       })
       .catch((err) => {
         console.log(err);

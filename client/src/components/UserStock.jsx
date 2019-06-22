@@ -2,7 +2,8 @@ import React from 'react';
 
 const UserStock = (props) => (
   <div>
-    { props.purchase.description }
+    { props.purchase.stock_ticker }
+    { props.purchase.share_price}
   </div>
 )
 
