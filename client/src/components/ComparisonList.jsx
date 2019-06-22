@@ -12,7 +12,7 @@ class ComparisonList extends React.Component {
     return (
       <div>
         <h2>Comparisons</h2>
-        <Comparison />
+        <Comparison purchases={this.props.purchases} marketData={this.props.marketData}/>
       </div>
     )
   }
