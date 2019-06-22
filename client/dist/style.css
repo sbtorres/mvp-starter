@@ -24,6 +24,16 @@ body {
 .index-fund-price {
   display: inline-block;
 }
+#stock-comparison-module {
+  display: flex;
+  flex-direction: row;
+}
+
+#left-module {
+  display: flex;
+  width: 40%;
+  justify-content: center;
+}
 
 .user-stocks-list {
   display: flex;
@@ -34,7 +44,7 @@ body {
   display: flex;
   font-size: 16px;
   border: 3px solid black;
-  margin: 1% 0%;
+  margin: 10px 5px;
   height: 30px;
   align-items: center;
 }
@@ -62,20 +72,49 @@ body {
   justify-content: center;
 }
 
-#stock-comparison-module {
-  display: flex;
-  flex-direction: row;
-}
-
-#left-module {
-  display: flex;
-  width: 50%;
-  justify-content: center;
-}
-
 #right-module {
   display: flex;
-  width: 50%;
+  width: 60%;
   justify-content: center;
 }
+
+.comparison-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.comparison-row{
+  display: flex;
+  flex-direction: row;
+  font-size: 16px;
+  border: 3px solid black;
+  margin: 10px 5px;
+  height: 30px;
+  align-items: center;
+}
+
+.sp500-comparison {
+  display: flex;
+  color: #005ff7;
+  width: 33.33%;
+  height: 20px;
+  justify-content: center;
+}
+
+.nasdaq-comparison {
+  display: flex;
+  color: #000;
+  font-size: 16px;
+  width: 33.33%;
+  justify-content: center;
+}
+
+.dow-comparison {
+  display: flex;
+  color: #008000;
+  font-size: 16px;
+  width: 33.33%;
+  justify-content: center;
+}
+
 

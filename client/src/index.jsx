@@ -44,6 +44,7 @@ class App extends React.Component {
   }
 
   render () {
+    const ComparisonData = (<ComparisonList purchases={this.state.purchases} marketData={this.state.marketData}/>)
     return (
       <div>
       <h1>Stock Tracker</h1>
@@ -55,7 +56,7 @@ class App extends React.Component {
             <UserStocksList purchases={this.state.purchases}/>
           </div>
           <div id="right-module">
-            <ComparisonList />
+            {this.state.marketData.length > 1 ? ComparisonData : (<div></div>)}
           </div>
         </div>
       </div>
