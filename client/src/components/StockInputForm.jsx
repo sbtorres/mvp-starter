@@ -67,15 +67,15 @@ class StockInputForm extends React.Component {
     super(props);
 
     this.ref = React.createRef();
-    this.state = {};
+    this.state = {
+      stock_ticker: '',
+      num_of_shares: '',
+      share_price: '',
+      date_purchased: '',
+    };
     
-    this.onCloseButtonClick = this.onCloseButtonClick.bind(this);
     this.handleClickOutsideModal = this.handleClickOutsideModal.bind(this);
-  }
-
-  onCloseButtonClick() {
-    const { hideStockPurchaseModal } = this.props;
-    hideStockPurchaseModal();
+    this.onUserTextInput = this.onUserTextInput.bind(this);
   }
 
   handleClickOutsideModal(event) {
@@ -83,33 +83,41 @@ class StockInputForm extends React.Component {
     const { hideStockPurchaseModal } = this.props;
 
     if (isOutside) {
-      hideStockPurchaseModal(false);
+      hideStockPurchaseModal();
     }
+  }
+
+  onUserTextInput(event) {
+    const target = event.target;
+    const name = target.name;
+    this.setState({
+      [name]: target.value,
+    });
   }
 
   render() {
     return(
       <StyledContainer onClick={this.handleClickOutsideModal} isVisible={this.props.isVisible}>
-        <StyledCloseButton onClick={this.onCloseButtonClick}>X</StyledCloseButton>
+        <StyledCloseButton>X</StyledCloseButton>
         <StyledStockModalContainer ref={this.ref}>
           <h3>What'd you buy?</h3>
           <StyledForm>
             <StyledLabel>Stock Ticker</StyledLabel>
-            <input type="text" />
+            <input name="stock_ticker" type="text" onChange={this.onUserTextInput}/>
           </StyledForm>
           <StyledForm>
             <StyledLabel>Number of Shares</StyledLabel>
-            <input type="number" />
+            <input name="num_of_shares" type="text" onChange={this.onUserTextInput}/>
           </StyledForm>
           <StyledForm>
             <StyledLabel>Price per Share</StyledLabel>
-            <input type="number" />
+            <input name="share_price" type="text" onChange={this.onUserTextInput}/>
           </StyledForm>
           <StyledForm>
             <StyledLabel>Date Purchased (YYYY-MM-DD)</StyledLabel>
-            <input type="text" />
+            <input name="date_purchased" type="text" onChange={this.onUserTextInput}/>
           </StyledForm>
-          <div style={{"display": "flex", "justifyContent": "center", "padding-top": "10px"}}>
+          <div style={{"display": "flex", "justifyContent": "center", "paddingTop": "10px"}}>
             <StyledPurchaseButton>Add Purchase!</StyledPurchaseButton>
           </div>
         </StyledStockModalContainer>
