@@ -2,9 +2,9 @@ var mysql = require('mysql');
 
 var connection = mysql.createConnection({
   host     : 'localhost',
-  user     : 'scotttorres',
+  user     : 'root',
   password : '',
-  database : 'stock-tracker'
+  database : 'stock_tracker'
 });
 
 var getPurchases = function(userId, callback) {

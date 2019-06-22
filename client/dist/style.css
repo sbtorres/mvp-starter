@@ -1,21 +1,65 @@
 body {
-  background-color: #729adb;
-}
-
-#market-overview-panel {
-  display: flex;
-  flex-direction: row;
+  background-color: #bdbfc1;
 }
 
 #index-fund-list {
   display: flex;
-  list-style: none;
-  margin: 0% 5%;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  border: 2px solid black;
+}
+
+.index-fund-column {
+  width: 150px;
+  margin: 5px 0px;
+  font-size: 24px;
 }
 
 .index-fund-ticker {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.index-fund-price {
+  display: inline-block;
+}
+
+.user-stocks-list {
   display: flex;
-  margin: 0% 10%;
+  flex-direction: column;
+}
+
+.user-stock {
+  display: flex;
+  font-size: 16px;
+  border: 3px solid black;
+  margin: 1% 0%;
+  height: 30px;
+  align-items: center;
+}
+
+.user-stock-ticker {
+  display: flex;
+  color: #005ff7;
+  width: 70%;
+  height: 20px;
+  padding-left: 15px;
+}
+.user-num-shares {
+  display: flex;
+  color: #000;
+  font-size: 16px;
+  width: 15%;
+  justify-content: center;
+}
+
+.user-share-price {
+  display: flex;
+  color: #008000;
+  font-size: 16px;
+  width: 15%;
+  justify-content: center;
 }
 
 #stock-comparison-module {
@@ -25,11 +69,13 @@ body {
 
 #left-module {
   display: flex;
-  margin: 1% 10%;
+  width: 50%;
+  justify-content: center;
 }
 
 #right-module {
   display: flex;
-  margin: 1% 10%;
+  width: 50%;
+  justify-content: center;
 }
 

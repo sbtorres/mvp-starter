@@ -1,11 +1,16 @@
 import React from 'react';
 
 const MarketOverview = (props) => (
-  <ul id="index-fund-list">
+  <div id="index-fund-list">
     {props.marketData.map((tickerData) => {
-      return (<li className="index-fund-ticker">{tickerData.symbol}   {tickerData.lastSalePrice}</li>);
+      return (
+        <ul className="index-fund-column">
+          <li className="index-fund-ticker">{tickerData.symbol}</li>
+          <li className="index-fund-price">{tickerData.lastSalePrice}</li>
+        </ul>
+      );
     })}
-  </ul>
+  </div>
 )
 
 export default MarketOverview;
