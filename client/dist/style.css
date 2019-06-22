@@ -69,13 +69,13 @@ body {
 
 #left-module {
   display: flex;
-  width: 50%;
+  width: 40%;
   justify-content: center;
 }
 
 #right-module {
   display: flex;
-  width: 50%;
+  width: 60%;
   justify-content: center;
 }
 
