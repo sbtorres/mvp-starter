@@ -53,6 +53,15 @@ const StyledCloseButton = styled.button`
   color: #fff;
 `;
 
+const StyledPurchaseButton = styled.button`
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  background-color: #42ffaa;
+  font-size: 16px;
+  padding: 10px;
+`;
+
 class StockInputForm extends React.Component {
   constructor(props) {
     super(props);
@@ -83,7 +92,7 @@ class StockInputForm extends React.Component {
       <StyledContainer onClick={this.handleClickOutsideModal} isVisible={this.props.isVisible}>
         <StyledCloseButton onClick={this.onCloseButtonClick}>X</StyledCloseButton>
         <StyledStockModalContainer ref={this.ref}>
-          <h4>What'd you buy?</h4>
+          <h3>What'd you buy?</h3>
           <StyledForm>
             <StyledLabel>Stock Ticker</StyledLabel>
             <input type="text" />
@@ -100,6 +109,9 @@ class StockInputForm extends React.Component {
             <StyledLabel>Date Purchased (YYYY-MM-DD)</StyledLabel>
             <input type="text" />
           </StyledForm>
+          <div style={{"display": "flex", "justifyContent": "center", "padding-top": "10px"}}>
+            <StyledPurchaseButton>Add Purchase!</StyledPurchaseButton>
+          </div>
         </StyledStockModalContainer>
       </StyledContainer>
     );
