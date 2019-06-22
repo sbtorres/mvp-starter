@@ -15,9 +15,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/purchases')
+    axios.get('http://localhost:3000/purchases/1')
       .then((purchases) => {
-        this.setState({purchases: purchases});
+        this.setState({purchases: purchases.data});
       })
       .catch((err) => {
         console.log(err);
@@ -25,7 +25,18 @@ class App extends React.Component {
 
     axios.get('https://api.iextrading.com/1.0/tops?symbols=voo,qqq,dia') 
       .then((marketData) => {
-        this.setState({marketData: marketData.data});
+        // When not in trading hours, it appears TOPS does not return anything. This is a workaround.
+        if (marketData.data.length < 1) {
+          axios.get('https://api.iextrading.com/1.0/tops/last?symbols=voo,qqq,dia')
+            .then((marketData) => {
+              marketData.data.forEach((ticker) => {
+                ticker.lastSalePrice = ticker.price;
+              })
+              this.setState({marketData: marketData.data});
+            })
+        } else {
+          this.setState({marketData: marketData.data});
+        }
       })
       .catch((err) => {
         console.log(err);
