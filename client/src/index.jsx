@@ -47,7 +47,7 @@ class App extends React.Component {
     const ComparisonData = (<ComparisonList purchases={this.state.purchases} marketData={this.state.marketData}/>)
     return (
       <div>
-      <h1>Stock Tracker</h1>
+      <h1>MyIndex</h1>
         <div id="market-overview-panel">
           <MarketOverview marketData={this.state.marketData}/>
         </div>

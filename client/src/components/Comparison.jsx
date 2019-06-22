@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Comparison = (props) => (
-  <div className="comparison-list">
+  <div className="comparison">
     {props.purchases.map((purchase) => {
       return (
         <div className="comparison-row">

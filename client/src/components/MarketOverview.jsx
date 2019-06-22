@@ -6,7 +6,7 @@ const MarketOverview = (props) => (
       return (
         <ul className="index-fund-column">
           <li className="index-fund-ticker">{tickerData.symbol}</li>
-          <li className="index-fund-price">{tickerData.lastSalePrice}</li>
+          <li className="index-fund-price">{'$' + tickerData.lastSalePrice.toFixed(2)}</li>
         </ul>
       );
     })}
