@@ -10,7 +10,11 @@ class App extends React.Component {
     super(props);
     this.state = { 
       purchases: [],
-      marketData: [],
+      marketData: [
+        {lastSalePrice: 271.49, symbol: "VOO"}, 
+        {lastSalePrice: 188.62, symbol: "QQQ"}, 
+        {lastSalePrice: 276.13, symbol: "DIA"}
+      ],
     }
   }
 
@@ -55,7 +59,7 @@ class App extends React.Component {
             <UserStocksList purchases={this.state.purchases}/>
           </div>
           <div id="right-module">
-            <ComparisonList />
+            <ComparisonList purchases={this.state.purchases} marketData={this.state.marketData}/>
           </div>
         </div>
       </div>
