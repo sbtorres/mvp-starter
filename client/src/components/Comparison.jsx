@@ -2,8 +2,15 @@ import React from 'react';
 
 const Comparison = (props) => (
   <div>
-    Placeholder for future comparison data.
+    {props.purchases.map((purchase) => {
+      return (
+        <div>
+          <div>{(props.marketData[0].lastSalePrice - purchase.sp500_price) / purchase.sp500_price}</div>
+        </div>
+      );
+    })}
   </div>
 )
+
 
 export default Comparison;
