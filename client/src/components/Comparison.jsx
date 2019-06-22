@@ -5,7 +5,9 @@ const Comparison = (props) => (
     {props.purchases.map((purchase) => {
       return (
         <div>
-          <div>{(props.marketData[0].lastSalePrice - purchase.sp500_price) / purchase.sp500_price}</div>
+          <div>{(100 * (props.marketData[0].lastSalePrice - purchase.sp500_price) / purchase.sp500_price).toFixed(2)}</div>
+          <div>{(100 * (props.marketData[1].lastSalePrice - purchase.nasdaq_price) / purchase.nasdaq_price).toFixed(2)}</div>
+          <div>{(100* (props.marketData[2].lastSalePrice - purchase.dow_price) / purchase.dow_price).toFixed(2)}</div>
         </div>
       );
     })}
