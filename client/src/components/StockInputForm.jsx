@@ -12,6 +12,33 @@ const StyledContainer = styled.div`
   z-index: 1;
 `;
 
+const StyledStockModalContainer = styled.div`
+  display: block;
+  position:fixed;
+  background: rgb(255, 255, 255);
+  padding: 24px;
+  font-family: Roboto, Helvetica, sans-serif;
+  color: #484848;
+  font-size: 14px;
+  width: 23%;
+  height: auto;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+`;
+
+const StyledForm = styled.form`
+  display: flex;
+  background-color: #fff;
+  justify-content: left;
+  padding: 5px;
+`;
+
+const StyledLabel = styled.label`
+  display: flex;
+  width: 50%;
+`;
+
 class StockInputForm extends React.Component {
   constructor(props) {
     super(props);
@@ -22,14 +49,21 @@ class StockInputForm extends React.Component {
   render() {
     return(
       <StyledContainer isVisible={this.props.isVisible}>
-        <form>
-          <label>Stock Ticker</label>
-          <input type="text" />
-          <label>Number of Shares</label>
-          <input type="number" />
-          <label>Price per Share</label>
-          <input type="number" />
-        </form>
+        <StyledStockModalContainer>
+          <h4>What'd you buy?</h4>
+          <StyledForm>
+            <StyledLabel>Stock Ticker</StyledLabel>
+            <input type="text" />
+          </StyledForm>
+          <StyledForm>
+            <StyledLabel>Number of Shares</StyledLabel>
+            <input type="number" />
+          </StyledForm>
+          <StyledForm>
+            <StyledLabel>Price per Share</StyledLabel>
+            <input type="number" />
+          </StyledForm>
+        </StyledStockModalContainer>
       </StyledContainer>
     );
   }

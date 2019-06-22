@@ -12,7 +12,7 @@ class App extends React.Component {
     this.state = { 
       purchases: [],
       marketData: [],
-      stockPurchaseModalIsVisible: false,
+      stockPurchaseModalIsVisible: true,
     }
   }
 
