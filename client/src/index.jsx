@@ -76,7 +76,9 @@ class App extends React.Component {
             {this.state.marketData.length > 1 ? ComparisonData : (<div></div>)}
           </div>
         </div>
-        <button onClick={this.handleStockPurchaseClick}>Add A Stock!</button>
+        <div style={{"display": "flex", "width": "30%", "justifyContent": "center", "padding-top": "10px"}}>
+          <button onClick={this.handleStockPurchaseClick}>Add A Stock!</button>
+        </div>
         <div>
           <StockInputForm hideStockPurchaseModal={this.hideStockPurchaseModal} isVisible={this.state.stockPurchaseModalIsVisible}/>
         </div>
