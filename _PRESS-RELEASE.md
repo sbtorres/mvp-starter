@@ -24,6 +24,6 @@
   Get out there and beat the market!
 
 ## API References ##
-  > Stock Data pulled from IEX and WorldTradingData.com. See their links below.
-  > IEX: https://iextrading.com/developer
+  Stock Data pulled from IEX and WorldTradingData.com. See their links below.\n
+  > IEX: https://iextrading.com/developer \n
   > World Trading Data: https://www.worldtradingdata.com
