@@ -25,5 +25,5 @@
 
 ## API References ##
   Stock Data pulled from IEX and WorldTradingData.com. See their links below.\n
-  > IEX: https://iextrading.com/developer \n
+  > IEX: https://iextrading.com/developer<br />
   > World Trading Data: https://www.worldtradingdata.com
