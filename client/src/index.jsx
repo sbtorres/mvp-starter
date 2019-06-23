@@ -63,6 +63,7 @@ class App extends React.Component {
 
   handleUserStockInput(submittedPurchase) {
     let date = submittedPurchase.date_purchased;
+    submittedPurchase.stock_ticker = submittedPurchase.stock_ticker.toUpperCase();
     axios.get(`http://localhost:3000/historicalData/VOO/${date}`)
       .then((historicalData) => {
         submittedPurchase.sp500_price = historicalData.data[0].close;
@@ -72,7 +73,13 @@ class App extends React.Component {
           axios.get(`http://localhost:3000/historicalData/DIA/${date}`)
           .then((historicalData) => {
             submittedPurchase.dow_price = historicalData.data[0].close;
-            axios.post(`http://localhost:3000/purchases/1`, submittedPurchase);
+            axios.post(`http://localhost:3000/purchases/1`, submittedPurchase)
+            .then(() => {
+              this.componentDidMount();
+            })
+            .catch((err) => {
+              console.log(err);
+            })
           })
           .catch((err) => {
             console.log(err);
@@ -85,10 +92,6 @@ class App extends React.Component {
       .catch((err) => {
         console.log(err);
       })
-
-
-    submittedPurchase.stock_ticker = submittedPurchase.stock_ticker.toUpperCase();
-    console.log(submittedPurchase);
   }
 
   render () {
