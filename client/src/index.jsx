@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MarketOverview from './components/MarketOverview.jsx'
+import MarketOverview from './components/MarketOverview.jsx';
 import UserStocksList from './components/UserStocksList.jsx';
 import ComparisonList from './components/ComparisonList.jsx';
+import StockInputForm from './components/StockInputForm.jsx';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -11,7 +12,12 @@ class App extends React.Component {
     this.state = { 
       purchases: [],
       marketData: [],
+      stockPurchaseModalIsVisible: false,
     }
+
+    this.handleStockPurchaseClick = this.handleStockPurchaseClick.bind(this);
+    this.hideStockPurchaseModal = this.hideStockPurchaseModal.bind(this);
+    this.handleUserStockInput = this.handleUserStockInput.bind(this);
   }
 
   componentDidMount() {
@@ -43,6 +49,48 @@ class App extends React.Component {
       })
   }
 
+  handleStockPurchaseClick() {
+    this.setState(prevState => {
+      return {stockPurchaseModalIsVisible: !prevState.stockPurchaseModalIsVisible}
+    });
+  }
+
+  hideStockPurchaseModal() {
+    this.setState(prevState => {
+      return {stockPurchaseModalIsVisible: !prevState.stockPurchaseModalIsVisible}
+    });
+  }
+
+  handleUserStockInput(submittedPurchase) {
+    let date = submittedPurchase.date_purchased;
+    axios.get(`http://localhost:3000/historicalData/VOO/${date}`)
+      .then((historicalData) => {
+        submittedPurchase.sp500_price = historicalData.data[0].close;
+        axios.get(`http://localhost:3000/historicalData/QQQ/${date}`)
+        .then((historicalData) => {
+          submittedPurchase.nasdaq_price = historicalData.data[0].close;
+          axios.get(`http://localhost:3000/historicalData/DIA/${date}`)
+          .then((historicalData) => {
+            submittedPurchase.dow_price = historicalData.data[0].close;
+            axios.post(`http://localhost:3000/purchases/1`, submittedPurchase);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
+
+    submittedPurchase.stock_ticker = submittedPurchase.stock_ticker.toUpperCase();
+    console.log(submittedPurchase);
+  }
+
   render () {
     const ComparisonData = (<ComparisonList purchases={this.state.purchases} marketData={this.state.marketData}/>)
     return (
@@ -58,6 +106,16 @@ class App extends React.Component {
           <div id="right-module">
             {this.state.marketData.length > 1 ? ComparisonData : (<div></div>)}
           </div>
+        </div>
+        <div style={{"display": "flex", "width": "30%", "justifyContent": "center", "padding-top": "10px"}}>
+          <button onClick={this.handleStockPurchaseClick}>Add A Stock!</button>
+        </div>
+        <div>
+          <StockInputForm
+            handleUserStockInput={this.handleUserStockInput}
+            hideStockPurchaseModal={this.hideStockPurchaseModal}
+            isVisible={this.state.stockPurchaseModalIsVisible}
+          />
         </div>
       </div>
     )

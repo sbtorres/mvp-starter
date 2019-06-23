@@ -28,6 +28,65 @@ CREATE TABLE purchases (
 
 );
 
+CREATE TABLE sp_historical (
+  date        DATE NOT NULL,
+  open       NUMERIC(10, 4) NOT NULL,
+  close       NUMERIC(10, 4) NOT NULL,
+  high        NUMERIC(10, 4) NOT NULL,
+  low         NUMERIC(10, 4) NOT NULL,
+  volume     INT NOT NULL
+);
+
+CREATE TABLE nasdaq_historical (
+  date        DATE NOT NULL,
+  open       NUMERIC(10, 4) NOT NULL,
+  close       NUMERIC(10, 4) NOT NULL,
+  high        NUMERIC(10, 4) NOT NULL,
+  low         NUMERIC(10, 4) NOT NULL,
+  volume     INT NOT NULL
+);
+
+CREATE TABLE dow_historical (
+  date        DATE NOT NULL,
+  open        NUMERIC(10, 4) NOT NULL,
+  close       NUMERIC(10, 4) NOT NULL,
+  high        NUMERIC(10, 4) NOT NULL,
+  low         NUMERIC(10, 4) NOT NULL,
+  volume      INT NOT NULL
+);
+
+LOAD DATA LOCAL INFILE './data/fakeUser.txt' 
+INTO TABLE users 
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE './data/fakePurchases.txt' 
+INTO TABLE purchases 
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE './data/worldtradingdata-history-VOO.csv' 
+INTO TABLE sp_historical
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE './data/worldtradingdata-history-QQQ.csv' 
+INTO TABLE nasdaq_historical 
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE './data/worldtradingdata-history-DIA.csv' 
+INTO TABLE dow_historical 
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
 /*  Execute this file from the command line by typing:
  *    mysql -u root < server/schema.sql
  *  to create the database and the tables.
