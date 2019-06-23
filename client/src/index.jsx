@@ -62,17 +62,30 @@ class App extends React.Component {
   }
 
   handleUserStockInput(submittedPurchase) {
-    axios.get('https://api.iextrading.com/1.0/tops/last?symbols=voo,qqq,dia')
-      .then((indexData) => {
-        submittedPurchase.sp500_price = indexData.data[0].price.toString();
-        submittedPurchase.nasdaq_price = indexData.data[1].price.toString();
-        submittedPurchase.dow_price = indexData.data[2].price.toString();
-        submittedPurchase.stock_ticker = submittedPurchase.stock_ticker.toUpperCase();
-        console.log(submittedPurchase);
+    let date = submittedPurchase.date_purchased;
+    axios.get(`http://localhost:3000/historicalData/VOO/${date}`)
+      .then((historicalData) => {
+        console.log(historicalData);
       })
       .catch((err) => {
         console.log(err);
       })
+    axios.get(`http://localhost:3000/historicalData/QQQ/${date}`)
+      .then((historicalData) => {
+        console.log(historicalData);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    axios.get(`http://localhost:3000/historicalData/DIA/${date}`)
+      .then((historicalData) => {
+        console.log(historicalData);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    submittedPurchase.stock_ticker = submittedPurchase.stock_ticker.toUpperCase();
+    console.log(submittedPurchase);
   }
 
   render () {
