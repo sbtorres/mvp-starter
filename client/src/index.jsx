@@ -110,8 +110,8 @@ class App extends React.Component {
             {this.state.marketData.length > 1 ? ComparisonData : (<div></div>)}
           </div>
         </div>
-        <div style={{"display": "flex", "width": "30%", "justifyContent": "center", "paddingTop": "10px"}}>
-          <button onClick={this.handleStockPurchaseClick}>Add A Stock!</button>
+        <div style={{"display": "flex", "width": "40%", "justifyContent": "center", "paddingTop": "20px"}}>
+          <button className="add-stock-button" onClick={this.handleStockPurchaseClick}>Add A Stock!</button>
         </div>
         <div>
           <StockInputForm
