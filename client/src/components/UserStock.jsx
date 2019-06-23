@@ -9,7 +9,10 @@ const UserStock = (props) => (
         { props.purchase.num_of_shares }
       </div>
       <div className="user-share-price">
-        { '$' + props.purchase.share_price.toFixed(2) }
+        { '$' + props.purchase.share_price.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }
+      </div>
+      <div className="user-total">
+        { '$' + (props.purchase.share_price * props.purchase.num_of_shares).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
       </div>
   </div>
 )
