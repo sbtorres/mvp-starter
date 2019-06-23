@@ -65,25 +65,28 @@ class App extends React.Component {
     let date = submittedPurchase.date_purchased;
     axios.get(`http://localhost:3000/historicalData/VOO/${date}`)
       .then((historicalData) => {
-        console.log(historicalData);
+        submittedPurchase.sp500_price = historicalData.data[0].close;
+        axios.get(`http://localhost:3000/historicalData/QQQ/${date}`)
+        .then((historicalData) => {
+          submittedPurchase.nasdaq_price = historicalData.data[0].close;
+          axios.get(`http://localhost:3000/historicalData/DIA/${date}`)
+          .then((historicalData) => {
+            submittedPurchase.dow_price = historicalData.data[0].close;
+            axios.post(`http://localhost:3000/purchases/1`, submittedPurchase);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+        })
+        .catch((err) => {
+          console.log(err);
+        })
       })
       .catch((err) => {
         console.log(err);
       })
-    axios.get(`http://localhost:3000/historicalData/QQQ/${date}`)
-      .then((historicalData) => {
-        console.log(historicalData);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-    axios.get(`http://localhost:3000/historicalData/DIA/${date}`)
-      .then((historicalData) => {
-        console.log(historicalData);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+
+
     submittedPurchase.stock_ticker = submittedPurchase.stock_ticker.toUpperCase();
     console.log(submittedPurchase);
   }
