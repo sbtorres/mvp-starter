@@ -42,3 +42,8 @@ Once the project moves into development, the press release can be used as a touc
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
+
+## API References ##
+  > Stock Data pulled from IEX and WorldTradingData.com. See their links below.
+  > IEX: https://iextrading.com/developer
+  > World Trading Data: https://www.worldtradingdata.com
