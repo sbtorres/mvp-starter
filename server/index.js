@@ -31,6 +31,17 @@ app.get('/historicalData/:symbol/:date', function (req, res) {
   })
 });
 
+app.post('/purchases/:user_id', function (req, res) {
+  const userId = req.params.user_id;
+  db.createPurchase(userId, req.body, (err) => {
+    if (err) {
+      res.status(422).send(err);
+    } else {
+      res.status(201).send('Posted!');
+    }
+  })
+});
+
 app.listen(3000, function() {
   console.log('listening on port 3000!');
 });
