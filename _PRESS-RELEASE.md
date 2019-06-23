@@ -1,49 +1,29 @@
-# Project Name #
+# MyIndex #
 
-<!-- 
-> This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterities sake.
+## About ##
+  Ever wondered whether you should have bought the individual stock that you thought was going to hit it big, or just bought a mutual fund instead? Now you can find out! MyIndex is a stock purchase tracking application that allows you to input your stock purchases and track how well you do against the S&P 500, NASDAQ, and Dow Jones Industrial Average!
 
-There is an approach called "working backwards" that is widely used at Amazon. They work backwards from the customer, rather than starting with an idea for a product and trying to bolt customers onto it. While working backwards can be applied to any specific product decision, using this approach is especially important when developing new products or features.
-
-For new initiatives a product manager typically starts by writing an internal press release announcing the finished product. The target audience for the press release is the new/updated product's customers, which can be retail customers or internal users of a tool or technology. Internal press releases are centered around the customer problem, how current solutions (internal or external) fail, and how the new product will blow away existing solutions.
-
-If the benefits listed don't sound very interesting or exciting to customers, then perhaps they're not (and shouldn't be built). Instead, the product manager should keep iterating on the press release until they've come up with benefits that actually sound like benefits. Iterating on a press release is a lot less expensive than iterating on the product itself (and quicker!).
-
-If the press release is more than a page and a half, it is probably too long. Keep it simple. 3-4 sentences for most paragraphs. Cut out the fat. Don't make it into a spec. You can accompany the press release with a FAQ that answers all of the other business or execution questions so the press release can stay focused on what the customer gets. My rule of thumb is that if the press release is hard to write, then the product is probably going to suck. Keep working at it until the outline for each paragraph flows. 
-
-Oh, and I also like to write press-releases in what I call "Oprah-speak" for mainstream consumer products. Imagine you're sitting on Oprah's couch and have just explained the product to her, and then you listen as she explains it to her audience. That's "Oprah-speak", not "Geek-speak".
-
-Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
- -->
- 
-## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
-
-## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
-
-## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
-
-## Problem ##
-  > Describe the problem your product solves.
+## Why? ##
+  As an investor, I often find myself asking whether or not that individual stock I purchased has done better than the overall market. I've looked for an online tool to help me answer that question and have come up empty. I built this tool for others like me who take a vested interest in the stock market and love to see whether they can beat the market!
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  As a user of MyIndex, you can input individual stock purchases that you have made over the past 10+ years. Upon entering a purchase, MyIndex will pull historical data for VOO (Vanguard S&P 500 Mutual Fund), QQQ (PowerShares NASDAQ Mutual Fund), and DIA (SPDR Dow Jones Industrial Average ETF). Using the historical data, MyIndex calculates how well that specific purchase has done against these three mutual funds. A postive percentage means that your purchase has beaten the index over that time. A negative percentage means you probably should have just bought the mutual fund instead of that cool IPO you thought was going to be big :). Now get out there and beat the market!
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  "I created MyIndex for those like me who love to play individual stocks and see if they can find those companies who beat the market over the long term." - Scott Torres
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  1. Click the "Add a stock" button.
+  2. Add the stock ticker for the stock you purchased, how many shares you bought, the price you bought the shares at, and what day you bought them.
+  3. Click the purchase button and see how well that stock has done!
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  "I love using MyIndex to track my stock purchases! It helps to keep me honest about whether I should be buying mutual funds instead of individual stocks!" - Jordan Belfort
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  Get out there and beat the market!
 
 ## API References ##
-  > Stock Data pulled from IEX and WorldTradingData.com. See their links below.
-  > IEX: https://iextrading.com/developer
+  Stock Data pulled from IEX and WorldTradingData.com. See their links below.
+  > IEX: https://iextrading.com/developer<br />
   > World Trading Data: https://www.worldtradingdata.com
