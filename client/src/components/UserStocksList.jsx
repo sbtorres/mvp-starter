@@ -10,7 +10,7 @@ const UserStocksList = (props) => (
       <h4 className="left-header-col-3">Share Price</h4>
     </div>
     <div className="user-stocks-list">
-      { props.purchases.map(purchase => <UserStock purchase={purchase}/>)}
+      { props.purchases.map(purchase => <UserStock key={purchase.id} purchase={purchase}/>)}
     </div>
   </div>
 )
