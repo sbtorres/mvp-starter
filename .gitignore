@@ -3,3 +3,9 @@ node_modules
 
 # Webpack bundle
 client/dist/bundle.js
+
+# MAC .DS_Store
+.DS_Store
+
+# CSV Data Files for MySQL
+data/
