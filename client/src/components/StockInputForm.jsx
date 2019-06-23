@@ -97,7 +97,7 @@ class StockInputForm extends React.Component {
   }
 
   handlePurchaseSubmission() {
-    const { handleUserStockInput } = this.props;
+    const { handleUserStockInput, hideStockPurchaseModal } = this.props;
     const currentState = this.state;
     handleUserStockInput(currentState);
     this.setState({
@@ -106,6 +106,7 @@ class StockInputForm extends React.Component {
       share_price: '',
       date_purchased: '',
     });
+    hideStockPurchaseModal();
   }
 
   render() {
