@@ -1,7 +1,7 @@
 import React from 'react';
 
 const MarketOverview = (props) => (
-  <div id="index-fund-list">
+  <div className="top-headers">
     {props.marketData.map((tickerData, index) => {
       return (
         <ul key={index} className="index-fund-column">
