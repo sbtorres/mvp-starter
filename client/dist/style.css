@@ -53,7 +53,7 @@ h3 {
 
 #left-module {
   display: flex;
-  width: 40%;
+  width: 60%;
   justify-content: center;
   background-color: #e4e4e4;
   margin-right: 2%;
@@ -76,25 +76,37 @@ h3 {
 
 .left-header-col-1 {
   display: flex;
-  width: 40%;
+  width: 25%;
   padding-left: 15px;
 }
 
 .left-header-col-2 {
   display: flex;
-  width: 20%;
+  width: 15%;
   justify-content: center;
 }
 
 .left-header-col-3 {
   display: flex;
-  width: 20%;
+  width: 15%;
   justify-content: center;
 }
 
 .left-header-col-4 {
   display: flex;
-  width: 20%;
+  width: 15%;
+  justify-content: center;
+}
+
+.left-header-col-5 {
+  display: flex;
+  width: 15%;
+  justify-content: center;
+}
+
+.left-header-col-6 {
+  display: flex;
+  width: 15%;
   justify-content: center;
 }
 
@@ -134,7 +146,7 @@ h3 {
 .user-stock-ticker {
   display: flex;
   color: #005ff7;
-  width: 40%;
+  width: 25%;
   height: 20px;
   padding-left: 15px;
 }
@@ -143,15 +155,23 @@ h3 {
   display: flex;
   color: #000;
   font-size: 16px;
-  width: 20%;
+  width: 15%;
   justify-content: center;
 }
 
-.user-share-price {
+.current-share-price {
   display: flex;
   color: #008000;
   font-size: 16px;
-  width: 20%;
+  width: 15%;
+  justify-content: center;
+}
+
+.purchase-share-price {
+  display: flex;
+  color: #008000;
+  font-size: 16px;
+  width: 15%;
   justify-content: center;
 }
 
@@ -159,13 +179,21 @@ h3 {
   display: flex;
   color: #008000;
   font-size: 16px;
-  width: 20%;
+  width: 15%;
+  justify-content: center;
+}
+
+.stock-percent-gain {
+  display: flex;
+  color: #008000;
+  font-size: 16px;
+  width: 15%;
   justify-content: center;
 }
 
 #right-module {
   display: flex;
-  width: 60%;
+  width: 40%;
   justify-content: center;
   background-color: #e4e4e4;
   box-shadow: 0px 0px 4px 4px #777777;

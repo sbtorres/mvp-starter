@@ -21,9 +21,22 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    const updatedPurchases = [];
     axios.get('http://localhost:3000/purchases/1')
       .then((purchases) => {
-        this.setState({purchases: purchases.data});
+        const requests = purchases.data.map((purchase) => {
+          axios.get(`https://api.iextrading.com/1.0/tops/last?symbols=${purchase.stock_ticker}`)
+            .then((currentData) => {
+              purchase.current_share_price = currentData.data[0].price;
+              updatedPurchases.push(purchase); 
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+        })
+        Promise.all(requests).then(() => {
+          this.setState({purchases: updatedPurchases});
+        })
       })
       .catch((err) => {
         console.log(err);
@@ -96,6 +109,7 @@ class App extends React.Component {
 
   render () {
     const ComparisonData = (<ComparisonList purchases={this.state.purchases} marketData={this.state.marketData}/>)
+    const UserStocks = (<UserStocksList purchases={this.state.purchases}/>)
     return (
       <div>
       <h1>MyIndex</h1>
@@ -104,10 +118,10 @@ class App extends React.Component {
         </div>
         <div id="stock-comparison-module">
           <div id="left-module">
-            <UserStocksList purchases={this.state.purchases}/>
+            {this.state.purchases.length > 1 && this.state.marketData.length > 1 ? UserStocks : (<div></div>)}
           </div>
           <div id="right-module">
-            {this.state.marketData.length > 1 ? ComparisonData : (<div></div>)}
+            {this.state.purchases.length > 1 && this.state.marketData.length > 1 ? ComparisonData : (<div></div>)}
           </div>
         </div>
         <div style={{"display": "flex", "width": "40%", "justifyContent": "center", "paddingTop": "20px"}}>
