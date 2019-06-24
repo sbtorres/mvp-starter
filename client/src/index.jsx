@@ -21,7 +21,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const updatedPurchases = [];
+    let updatedPurchases = [];
     axios.get('http://localhost:3000/purchases/1')
       .then((purchases) => {
         const requests = purchases.data.map((purchase) => {
