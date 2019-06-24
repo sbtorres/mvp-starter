@@ -26,17 +26,13 @@ class App extends React.Component {
 
   componentDidMount() {
     let updatedPurchases = [];
-    let count = 0;
     axios.get('http://localhost:3000/purchases/1')
       .then((purchases) => {
-        console.log('return from db: ', purchases.data);
         const requests = purchases.data.map(async (purchase) => {
           const getCurrentData = await axios.get(`https://api.iextrading.com/1.0/tops/last?symbols=${purchase.stock_ticker}`)
             .then((currentData) => {
               purchase.current_share_price = currentData.data[0].price;
               updatedPurchases.push(purchase);
-              count++; 
-              console.log(count);
             })
             .catch((err) => {
               console.log(err);
@@ -70,7 +66,6 @@ class App extends React.Component {
   }
 
   calculateTotalsAndSetState(purchases, marketData) {
-    console.log('data passed to calcTotals: ', purchases, marketData);
     let userPortfolio = {
       userBaseline: 0,
       userCurrentTotal: 0,
