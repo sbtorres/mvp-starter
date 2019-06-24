@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'babel-polyfill';
 import PortfolioOverview from './components/PortfolioOverview.jsx';
 import MarketOverview from './components/MarketOverview.jsx';
 import UserStocksList from './components/UserStocksList.jsx';
@@ -25,13 +26,17 @@ class App extends React.Component {
 
   componentDidMount() {
     let updatedPurchases = [];
+    let count = 0;
     axios.get('http://localhost:3000/purchases/1')
       .then((purchases) => {
-        const requests = purchases.data.map((purchase) => {
-          axios.get(`https://api.iextrading.com/1.0/tops/last?symbols=${purchase.stock_ticker}`)
+        console.log('return from db: ', purchases.data);
+        const requests = purchases.data.map(async (purchase) => {
+          const getCurrentData = await axios.get(`https://api.iextrading.com/1.0/tops/last?symbols=${purchase.stock_ticker}`)
             .then((currentData) => {
               purchase.current_share_price = currentData.data[0].price;
-              updatedPurchases.push(purchase); 
+              updatedPurchases.push(purchase);
+              count++; 
+              console.log(count);
             })
             .catch((err) => {
               console.log(err);
@@ -39,7 +44,6 @@ class App extends React.Component {
         })
         
         Promise.all(requests).then(() => {
-          this.setState({purchases: updatedPurchases});
           axios.get('https://api.iextrading.com/1.0/tops?symbols=voo,qqq,dia') 
           .then((marketData) => {
             // When not in trading hours, it appears TOPS does not return anything. This is a workaround.
@@ -66,6 +70,7 @@ class App extends React.Component {
   }
 
   calculateTotalsAndSetState(purchases, marketData) {
+    console.log('data passed to calcTotals: ', purchases, marketData);
     let userPortfolio = {
       userBaseline: 0,
       userCurrentTotal: 0,
@@ -141,7 +146,6 @@ class App extends React.Component {
     const Portfolio= (<PortfolioOverview userPortfolio={this.state.userPortfolio} />)
     return (
       <div>
-      <h1>MyIndex</h1>
         <div id="portfolio-overview">
           {this.state.purchases.length > 1 && this.state.marketData.length > 1 ? Portfolio : (<div></div>)}
         </div>
