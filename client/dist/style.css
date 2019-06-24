@@ -4,6 +4,8 @@ body {
 }
 
 h1 {
+  display: inline-block;
+  margin: 0px 0px 10px 0px;
   color: #0865b7;
 }
 
@@ -40,6 +42,46 @@ h3 {
 
 .index-fund-column {
   width: 200px;
+  margin: 5px 0px;
+  font-size: 24px;
+}
+
+.portfolio-column-1 {
+  display: flex;
+  justify-content: center;
+  width: 25%;
+  margin: 5px 0px;
+  font-size: 24px;
+}
+
+.portfolio-column-2 {
+  display: flex;
+  justify-content: center;
+  width: 20%;
+  margin: 5px 0px;
+  font-size: 24px;
+}
+
+.portfolio-column-3 {
+  display: flex;
+  justify-content: center;
+  width: 16.67%;
+  margin: 5px 0px;
+  font-size: 24px;
+}
+
+.portfolio-column-4 {
+  display: flex;
+  justify-content: center;
+  width: 16.67%;
+  margin: 5px 0px;
+  font-size: 24px;
+}
+
+.portfolio-column-5 {
+  display: flex;
+  justify-content: center;
+  width: 21.67%;
   margin: 5px 0px;
   font-size: 24px;
 }
