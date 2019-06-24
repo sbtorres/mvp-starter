@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PortfolioOverview from './components/PortfolioOverview.jsx';
 import MarketOverview from './components/MarketOverview.jsx';
 import UserStocksList from './components/UserStocksList.jsx';
 import ComparisonList from './components/ComparisonList.jsx';
@@ -12,12 +13,14 @@ class App extends React.Component {
     this.state = { 
       purchases: [],
       marketData: [],
+      userPortfolio: {},
       stockPurchaseModalIsVisible: false,
     }
 
     this.handleStockPurchaseClick = this.handleStockPurchaseClick.bind(this);
     this.hideStockPurchaseModal = this.hideStockPurchaseModal.bind(this);
     this.handleUserStockInput = this.handleUserStockInput.bind(this);
+    this.calculateTotalsAndSetState = this.calculateTotalsAndSetState.bind(this);
   }
 
   componentDidMount() {
@@ -34,32 +37,57 @@ class App extends React.Component {
               console.log(err);
             })
         })
+        
         Promise.all(requests).then(() => {
           this.setState({purchases: updatedPurchases});
+          axios.get('https://api.iextrading.com/1.0/tops?symbols=voo,qqq,dia') 
+          .then((marketData) => {
+            // When not in trading hours, it appears TOPS does not return anything. This is a workaround.
+            if (marketData.data.length < 1) {
+              axios.get('https://api.iextrading.com/1.0/tops/last?symbols=voo,qqq,dia')
+                .then((marketData) => {
+                  marketData.data.forEach((ticker) => {
+                    ticker.lastSalePrice = ticker.price;
+                  })
+                  this.calculateTotalsAndSetState(updatedPurchases, marketData.data);
+                })
+            } else {
+              this.calculateTotalsAndSetState(updatedPurchases, marketData.data);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          })
         })
       })
       .catch((err) => {
         console.log(err);
       })
+  }
 
-    axios.get('https://api.iextrading.com/1.0/tops?symbols=voo,qqq,dia') 
-      .then((marketData) => {
-        // When not in trading hours, it appears TOPS does not return anything. This is a workaround.
-        if (marketData.data.length < 1) {
-          axios.get('https://api.iextrading.com/1.0/tops/last?symbols=voo,qqq,dia')
-            .then((marketData) => {
-              marketData.data.forEach((ticker) => {
-                ticker.lastSalePrice = ticker.price;
-              })
-              this.setState({marketData: marketData.data});
-            })
-        } else {
-          this.setState({marketData: marketData.data});
-        }
+  calculateTotalsAndSetState(purchases, marketData) {
+    let userPortfolio = {
+      userBaseline: 0,
+      userCurrentTotal: 0,
+      sp500CurrentTotal: 0,
+      nasdaqCurrentTotal: 0,
+      dowCurrentTotal: 0
+    }
+    const mapPurchases = purchases.map((purchase) => {
+      userPortfolio.userBaseline += purchase.share_price * purchase.num_of_shares;
+      userPortfolio.userCurrentTotal += purchase.current_share_price * purchase.num_of_shares;
+      userPortfolio.sp500CurrentTotal += ((purchase.share_price * purchase.num_of_shares) / purchase.sp500_price) * marketData[0].lastSalePrice;
+      userPortfolio.nasdaqCurrentTotal += ((purchase.share_price * purchase.num_of_shares) / purchase.nasdaq_price) * marketData[1].lastSalePrice;
+      userPortfolio.dowCurrentTotal += ((purchase.share_price * purchase.num_of_shares) / purchase.dow_price) * marketData[2].lastSalePrice;
+    });
+    
+    Promise.all(mapPurchases).then(() => {
+      this.setState({
+        purchases: purchases,
+        marketData: marketData,
+        userPortfolio: userPortfolio,
       })
-      .catch((err) => {
-        console.log(err);
-      })
+    })
   }
 
   handleStockPurchaseClick() {
@@ -110,9 +138,13 @@ class App extends React.Component {
   render () {
     const ComparisonData = (<ComparisonList purchases={this.state.purchases} marketData={this.state.marketData}/>)
     const UserStocks = (<UserStocksList purchases={this.state.purchases}/>)
+    const Portfolio= (<PortfolioOverview userPortfolio={this.state.userPortfolio} />)
     return (
       <div>
       <h1>MyIndex</h1>
+        <div id="portfolio-overview">
+          {this.state.purchases.length > 1 && this.state.marketData.length > 1 ? Portfolio : (<div></div>)}
+        </div>
         <div id="market-overview-panel">
           <MarketOverview marketData={this.state.marketData}/>
         </div>
