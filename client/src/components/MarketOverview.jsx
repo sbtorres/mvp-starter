@@ -1,15 +1,18 @@
 import React from 'react';
 
 const MarketOverview = (props) => (
-  <div id="index-fund-list">
-    {props.marketData.map((tickerData, index) => {
-      return (
-        <ul key={index} className="index-fund-column">
-          <li className="index-fund-ticker">{tickerData.symbol}</li>
-          <li className="index-fund-price">{'$' + tickerData.lastSalePrice.toFixed(2)}</li>
-        </ul>
-      );
-    })}
+  <div>
+    <h2 style={{"display": "flex", "justifyContent": "center", "margin": "5px 5px"}}>Market Overview</h2>
+    <div className="top-headers">
+      {props.marketData.map((tickerData, index) => {
+        return (
+          <ul key={index} className="index-fund-column">
+            <li className="index-fund-ticker">{tickerData.symbol}</li>
+            <li className="index-fund-price">{'$' + tickerData.lastSalePrice.toFixed(2)}</li>
+          </ul>
+        );
+      })}
+    </div>
   </div>
 )
 
