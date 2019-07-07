@@ -28,7 +28,7 @@ class App extends React.Component {
     let updatedPurchases = [];
     axios.get('http://localhost:3000/purchases/1')
       .then((purchases) => {
-        const requests = purchases.data.map(async (purchase) => {
+        const requests = purchases.data.individualPurchases.map(async (purchase) => {
           const getCurrentData = await axios.get(`https://api.iextrading.com/1.0/tops/last?symbols=${purchase.stock_ticker}`)
             .then((currentData) => {
               purchase.current_share_price = currentData.data[0].price;

@@ -22,6 +22,7 @@ app.get('/purchases/:id', function (req, res) {
           sortedPurchases[purchase.stock_ticker] = [purchase];
         }
       })
+      sortedPurchases.individualPurchases = purchases;
       res.status(200).send(sortedPurchases);
     }
   });
