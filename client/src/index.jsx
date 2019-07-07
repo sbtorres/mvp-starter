@@ -13,6 +13,7 @@ class App extends React.Component {
     super(props);
     this.state = { 
       purchases: [],
+      stockSummary: [],
       marketData: [],
       userPortfolio: {},
       stockPurchaseModalIsVisible: false,
@@ -28,6 +29,7 @@ class App extends React.Component {
     let updatedPurchases = [];
     axios.get('http://localhost:3000/purchases/1')
       .then((purchases) => {
+        this.setState({stockSummary: purchases.data.stockSummary});
         const requests = purchases.data.individualPurchases.map(async (purchase) => {
           const getCurrentData = await axios.get(`https://api.iextrading.com/1.0/tops/last?symbols=${purchase.stock_ticker}`)
             .then((currentData) => {
