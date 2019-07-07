@@ -10,11 +10,19 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 app.get('/purchases/:id', function (req, res) {
   const userId = req.params.id;
+  let sortedPurchases = {};
   db.getPurchases(userId, function(err, purchases) {
     if(err) {
       res.status(404).send(err);
     } else {
-      res.status(200).send(purchases);
+      purchases.map((purchase) => {
+        if (sortedPurchases.hasOwnProperty(purchase.stock_ticker)) {
+          sortedPurchases[purchase.stock_ticker].push(purchase);
+        } else {
+          sortedPurchases[purchase.stock_ticker] = [purchase];
+        }
+      })
+      res.status(200).send(sortedPurchases);
     }
   });
 });
