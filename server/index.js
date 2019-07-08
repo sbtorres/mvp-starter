@@ -17,9 +17,25 @@ app.get('/purchases/:id', function (req, res) {
     } else {
       purchases.map((purchase) => {
         if (sortedPurchases.stockSummary.hasOwnProperty(purchase.stock_ticker)) {
-          sortedPurchases.stockSummary[purchase.stock_ticker].push(purchase);
+          let stockSummaryData = sortedPurchases.stockSummary[purchase.stock_ticker];
+          console.log(stockSummaryData);
+          console.log(stockSummaryData.avg_share_price);
+          let purchaseRatio = purchase.num_of_shares / (purchase.num_of_shares + stockSummaryData.num_of_shares);
+          stockSummaryData.avg_share_price = (stockSummaryData.avg_share_price * (1 - purchaseRatio)) + (purchase.share_price * purchaseRatio);
+          stockSummaryData.avg_dow_price = (stockSummaryData.avg_dow_price * (1 - purchaseRatio)) + (purchase.dow_price * purchaseRatio);
+          stockSummaryData.avg_nasdaq_price = (stockSummaryData.avg_nasdaq_price * (1 - purchaseRatio)) + (purchase.nasdaq_price * purchaseRatio);
+          stockSummaryData.avg_sp500_price = (stockSummaryData.avg_sp500_price * (1 - purchaseRatio)) + (purchase.sp500_price * purchaseRatio);
+          stockSummaryData.num_of_shares += purchase.num_of_shares;
         } else {
-          sortedPurchases.stockSummary[purchase.stock_ticker] = [purchase];
+          sortedPurchases.stockSummary[purchase.stock_ticker] = {
+            stock_ticker: purchase.stock_ticker,
+            num_of_shares: purchase.num_of_shares,
+            avg_share_price: purchase.share_price,
+            avg_dow_price: purchase.dow_price,
+            avg_nasdaq_price: purchase.nasdaq_price,
+            avg_sp500_price: purchase.sp500_price,
+            user_id: purchase.user_id
+          };
         }
       })
       sortedPurchases.individualPurchases = purchases;

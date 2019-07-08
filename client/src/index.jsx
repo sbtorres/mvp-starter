@@ -139,7 +139,7 @@ class App extends React.Component {
 
   render () {
     const ComparisonData = (<ComparisonList purchases={this.state.purchases} marketData={this.state.marketData}/>)
-    const UserStocks = (<UserStocksList purchases={this.state.purchases}/>)
+    const UserStocks = (<UserStocksList stockSummary={this.state.stockSummary} purchases={this.state.purchases}/>)
     const Portfolio= (<PortfolioOverview userPortfolio={this.state.userPortfolio} />)
     return (
       <div>
