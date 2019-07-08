@@ -24,7 +24,9 @@ const UserStock = (props) => (
         </div>
     </div>
     <div className="user-stocks-list">
-      { props.purchases.map(purchase => (purchase.stock_ticker === props.stockSummary.stock_ticker ? <Purchase key={purchase.id} purchase={purchase}/> : <div key={purchase.id}></div>))}
+      { props.stockSummary.individual_purchases.map(purchase => 
+        <Purchase key={purchase.id} purchase={purchase} stockSummary={props.stockSummary}/> 
+      )}
     </div>
   </div>
 )
