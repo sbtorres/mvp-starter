@@ -1,6 +1,5 @@
 import React from 'react';
 import UserStock from './UserStock.jsx';
-import Purchase from './Purchase.jsx';
 
 const UserStocksList = (props) => (
   <div style={{"width": "100%"}}>
@@ -14,10 +13,7 @@ const UserStocksList = (props) => (
       <h4 className="left-header-col-6">Total Gain</h4>
     </div>
     <div className="user-stocks-list">
-      {Object.keys(props.stockSummary).map(stockData => <UserStock key={stockData} purchase={props.stockSummary[stockData]}/>)}
-    </div>
-    <div className="user-stocks-list">
-      { props.purchases.map(purchase => <Purchase key={purchase.id} purchase={purchase}/>)}
+      {Object.keys(props.stockSummary).map(stockData => <UserStock key={stockData} stockSummary={props.stockSummary[stockData]} purchases={props.purchases} />)}
     </div>
   </div>
 )
