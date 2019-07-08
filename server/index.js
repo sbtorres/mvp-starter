@@ -32,7 +32,7 @@ app.get('/purchases/:id', function (req, res) {
   const userId = req.params.id;
   let sortedPurchases = {stockSummary:{}};
   let expectedTickers = {};
-  
+
   db.getPurchases(userId, function(err, purchases) {
     if(err) {
       res.status(404).send(err);
@@ -56,6 +56,7 @@ app.get('/purchases/:id', function (req, res) {
             stockSummaryData.avg_nasdaq_price = (stockSummaryData.avg_nasdaq_price * (1 - purchaseRatio)) + (purchases[i].nasdaq_price * purchaseRatio);
             stockSummaryData.avg_sp500_price = (stockSummaryData.avg_sp500_price * (1 - purchaseRatio)) + (purchases[i].sp500_price * purchaseRatio);
             stockSummaryData.num_of_shares += purchases[i].num_of_shares;
+            stockSummaryData.individual_purchases.push(purchases[i]);
           } else {
             sortedPurchases.stockSummary[purchases[i].stock_ticker] = {
               stock_ticker: purchases[i].stock_ticker,
@@ -65,6 +66,7 @@ app.get('/purchases/:id', function (req, res) {
               avg_nasdaq_price: purchases[i].nasdaq_price,
               avg_sp500_price: purchases[i].sp500_price,
               current_share_price: expectedTickers[purchases[i].stock_ticker],
+              individual_purchases: [purchases[i]],
             }
           }
         }
