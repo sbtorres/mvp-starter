@@ -1,3 +1,4 @@
+const axios = require('axios');
 var express = require('express');
 var bodyParser = require('body-parser');
 var db = require('../db');
@@ -15,7 +16,7 @@ app.get('/purchases/:id', function (req, res) {
     if(err) {
       res.status(404).send(err);
     } else {
-      purchases.map((purchase) => {
+      const requests = purchases.map(async (purchase) => {
         if (sortedPurchases.stockSummary.hasOwnProperty(purchase.stock_ticker)) {
           let stockSummaryData = sortedPurchases.stockSummary[purchase.stock_ticker];
           console.log(stockSummaryData);
@@ -27,19 +28,30 @@ app.get('/purchases/:id', function (req, res) {
           stockSummaryData.avg_sp500_price = (stockSummaryData.avg_sp500_price * (1 - purchaseRatio)) + (purchase.sp500_price * purchaseRatio);
           stockSummaryData.num_of_shares += purchase.num_of_shares;
         } else {
-          sortedPurchases.stockSummary[purchase.stock_ticker] = {
-            stock_ticker: purchase.stock_ticker,
-            num_of_shares: purchase.num_of_shares,
-            avg_share_price: purchase.share_price,
-            avg_dow_price: purchase.dow_price,
-            avg_nasdaq_price: purchase.nasdaq_price,
-            avg_sp500_price: purchase.sp500_price,
-            user_id: purchase.user_id
-          };
+          await axios.get(`https://api.iextrading.com/1.0/tops/last?symbols=${purchase.stock_ticker}`)
+          .then((currentStockData) => {
+            sortedPurchases.stockSummary[purchase.stock_ticker] = {
+              stock_ticker: purchase.stock_ticker,
+              current_share_price: currentStockData.data[0].price,
+              num_of_shares: purchase.num_of_shares,
+              avg_share_price: purchase.share_price,
+              avg_dow_price: purchase.dow_price,
+              avg_nasdaq_price: purchase.nasdaq_price,
+              avg_sp500_price: purchase.sp500_price,
+              user_id: purchase.user_id
+            }
+          }
+          )
+          .catch((err) => {
+            console.log(err);
+          })
         }
       })
-      sortedPurchases.individualPurchases = purchases;
-      res.status(200).send(sortedPurchases);
+
+      Promise.all(requests).then(() => {
+        sortedPurchases.individualPurchases = purchases;
+        res.status(200).send(sortedPurchases);
+      })
     }
   });
 });
