@@ -30,36 +30,24 @@ class App extends React.Component {
     axios.get('http://localhost:3000/purchases/1')
       .then((purchases) => {
         this.setState({stockSummary: purchases.data.stockSummary});
-        const requests = purchases.data.individualPurchases.map(async (purchase) => {
-          const getCurrentData = await axios.get(`https://api.iextrading.com/1.0/tops/last?symbols=${purchase.stock_ticker}`)
-            .then((currentData) => {
-              purchase.current_share_price = currentData.data[0].price;
-              updatedPurchases.push(purchase);
-            })
-            .catch((err) => {
-              console.log(err);
-            })
-        })
         
-        Promise.all(requests).then(() => {
-          axios.get('https://api.iextrading.com/1.0/tops?symbols=voo,qqq,dia') 
-          .then((marketData) => {
-            // When not in trading hours, it appears TOPS does not return anything. This is a workaround.
-            if (marketData.data.length < 1) {
-              axios.get('https://api.iextrading.com/1.0/tops/last?symbols=voo,qqq,dia')
-                .then((marketData) => {
-                  marketData.data.forEach((ticker) => {
-                    ticker.lastSalePrice = ticker.price;
-                  })
-                  this.calculateTotalsAndSetState(updatedPurchases, marketData.data);
+        axios.get('https://api.iextrading.com/1.0/tops?symbols=voo,qqq,dia') 
+        .then((marketData) => {
+          // When not in trading hours, it appears TOPS does not return anything. This is a workaround.
+          if (marketData.data.length < 1) {
+            axios.get('https://api.iextrading.com/1.0/tops/last?symbols=voo,qqq,dia')
+              .then((marketData) => {
+                marketData.data.forEach((ticker) => {
+                  ticker.lastSalePrice = ticker.price;
                 })
-            } else {
-              this.calculateTotalsAndSetState(updatedPurchases, marketData.data);
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          })
+                this.calculateTotalsAndSetState(purchases.data.stockSummary, marketData.data);
+              })
+          } else {
+            this.calculateTotalsAndSetState(purchases.data.stockSummary, marketData.data);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
         })
       })
       .catch((err) => {
@@ -75,21 +63,24 @@ class App extends React.Component {
       nasdaqCurrentTotal: 0,
       dowCurrentTotal: 0
     }
-    const mapPurchases = purchases.map((purchase) => {
-      userPortfolio.userBaseline += purchase.share_price * purchase.num_of_shares;
-      userPortfolio.userCurrentTotal += purchase.current_share_price * purchase.num_of_shares;
-      userPortfolio.sp500CurrentTotal += ((purchase.share_price * purchase.num_of_shares) / purchase.sp500_price) * marketData[0].lastSalePrice;
-      userPortfolio.nasdaqCurrentTotal += ((purchase.share_price * purchase.num_of_shares) / purchase.nasdaq_price) * marketData[1].lastSalePrice;
-      userPortfolio.dowCurrentTotal += ((purchase.share_price * purchase.num_of_shares) / purchase.dow_price) * marketData[2].lastSalePrice;
-    });
+
+    console.log(purchases);
     
-    Promise.all(mapPurchases).then(() => {
-      this.setState({
-        purchases: purchases,
-        marketData: marketData,
-        userPortfolio: userPortfolio,
-      })
+    for (let key in purchases) {
+      for (let i = 0; i < purchases[key].individual_purchases.length; i++) {
+        userPortfolio.userBaseline += purchases[key].individual_purchases[i].share_price * purchases[key].individual_purchases[i].num_of_shares;
+        userPortfolio.userCurrentTotal += purchases[key].current_share_price * purchases[key].individual_purchases[i].num_of_shares;
+        userPortfolio.sp500CurrentTotal += ((purchases[key].individual_purchases[i].share_price * purchases[key].individual_purchases[i].num_of_shares) / purchases[key].individual_purchases[i].sp500_price) * marketData[0].lastSalePrice;
+        userPortfolio.nasdaqCurrentTotal += ((purchases[key].individual_purchases[i].share_price * purchases[key].individual_purchases[i].num_of_shares) / purchases[key].individual_purchases[i].nasdaq_price) * marketData[1].lastSalePrice;
+        userPortfolio.dowCurrentTotal += ((purchases[key].individual_purchases[i].share_price * purchases[key].individual_purchases[i].num_of_shares) / purchases[key].individual_purchases[i].dow_price) * marketData[2].lastSalePrice;
+      }
+    }; 
+
+    this.setState({
+      marketData: marketData,
+      userPortfolio: userPortfolio,
     })
+
   }
 
   handleStockPurchaseClick() {
