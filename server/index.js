@@ -9,51 +9,71 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(__dirname + '/../client/dist'));
 
+const getData = (expectedTickers, callback) => {
+  let count = 0;
+  for (let key in expectedTickers) {
+    console.log(expectedTickers);
+    axios.get(`https://api.iextrading.com/1.0/tops/last?symbols=${key}`)
+    .then((currentStockData) => {
+      console.log('in then');
+      expectedTickers[key] = currentStockData.data[0].price;
+      count++;
+      if (count === Object.keys(expectedTickers).length) {
+        callback(expectedTickers);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+}
+
 app.get('/purchases/:id', function (req, res) {
   const userId = req.params.id;
   let sortedPurchases = {stockSummary:{}};
+  let expectedTickers = {};
+  
   db.getPurchases(userId, function(err, purchases) {
     if(err) {
       res.status(404).send(err);
     } else {
-      const requests = purchases.map(async (purchase) => {
-        if (sortedPurchases.stockSummary.hasOwnProperty(purchase.stock_ticker)) {
-          let stockSummaryData = sortedPurchases.stockSummary[purchase.stock_ticker];
-          console.log(stockSummaryData);
-          console.log(stockSummaryData.avg_share_price);
-          let purchaseRatio = purchase.num_of_shares / (purchase.num_of_shares + stockSummaryData.num_of_shares);
-          stockSummaryData.avg_share_price = (stockSummaryData.avg_share_price * (1 - purchaseRatio)) + (purchase.share_price * purchaseRatio);
-          stockSummaryData.avg_dow_price = (stockSummaryData.avg_dow_price * (1 - purchaseRatio)) + (purchase.dow_price * purchaseRatio);
-          stockSummaryData.avg_nasdaq_price = (stockSummaryData.avg_nasdaq_price * (1 - purchaseRatio)) + (purchase.nasdaq_price * purchaseRatio);
-          stockSummaryData.avg_sp500_price = (stockSummaryData.avg_sp500_price * (1 - purchaseRatio)) + (purchase.sp500_price * purchaseRatio);
-          stockSummaryData.num_of_shares += purchase.num_of_shares;
-        } else {
-          await axios.get(`https://api.iextrading.com/1.0/tops/last?symbols=${purchase.stock_ticker}`)
-          .then((currentStockData) => {
-            sortedPurchases.stockSummary[purchase.stock_ticker] = {
-              stock_ticker: purchase.stock_ticker,
-              current_share_price: currentStockData.data[0].price,
-              num_of_shares: purchase.num_of_shares,
-              avg_share_price: purchase.share_price,
-              avg_dow_price: purchase.dow_price,
-              avg_nasdaq_price: purchase.nasdaq_price,
-              avg_sp500_price: purchase.sp500_price,
-              user_id: purchase.user_id
+      for (let i = 0; i < purchases.length; i++) {
+        if (!expectedTickers[purchases[i]]) {
+          expectedTickers[purchases[i].stock_ticker] = 0;
+        }
+      }
+
+      getData(expectedTickers, () => {
+        for (let i = 0; i < purchases.length; i++) {
+          console.log('starting map');
+          if (sortedPurchases.stockSummary.hasOwnProperty(purchases[i].stock_ticker)) {
+            let stockSummaryData = sortedPurchases.stockSummary[purchases[i].stock_ticker];
+            console.log(stockSummaryData);
+            console.log(stockSummaryData.avg_share_price);
+            let purchaseRatio = purchases[i].num_of_shares / (purchases[i].num_of_shares + stockSummaryData.num_of_shares);
+            stockSummaryData.avg_share_price = (stockSummaryData.avg_share_price * (1 - purchaseRatio)) + (purchases[i].share_price * purchaseRatio);
+            stockSummaryData.avg_dow_price = (stockSummaryData.avg_dow_price * (1 - purchaseRatio)) + (purchases[i].dow_price * purchaseRatio);
+            stockSummaryData.avg_nasdaq_price = (stockSummaryData.avg_nasdaq_price * (1 - purchaseRatio)) + (purchases[i].nasdaq_price * purchaseRatio);
+            stockSummaryData.avg_sp500_price = (stockSummaryData.avg_sp500_price * (1 - purchaseRatio)) + (purchases[i].sp500_price * purchaseRatio);
+            stockSummaryData.num_of_shares += purchases[i].num_of_shares;
+          } else {
+            sortedPurchases.stockSummary[purchases[i].stock_ticker] = {
+              stock_ticker: purchases[i].stock_ticker,
+              num_of_shares: purchases[i].num_of_shares,
+              avg_share_price: purchases[i].share_price,
+              avg_dow_price: purchases[i].dow_price,
+              avg_nasdaq_price: purchases[i].nasdaq_price,
+              avg_sp500_price: purchases[i].sp500_price,
+              current_share_price: expectedTickers[purchases[i].stock_ticker],
             }
           }
-          )
-          .catch((err) => {
-            console.log(err);
-          })
         }
-      })
 
-      Promise.all(requests).then(() => {
         sortedPurchases.individualPurchases = purchases;
         res.status(200).send(sortedPurchases);
-      })
+      });
     }
-  });
+  })
 });
 
 app.get('/historicalData/:symbol/:date', function (req, res) {
