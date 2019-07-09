@@ -1,5 +1,6 @@
 import React from 'react';
 import Purchase from './Purchase.jsx';
+import SummaryComparison from './SummaryComparison.jsx';
 
 const UserStock = (props) => (
   <div>
@@ -23,9 +24,12 @@ const UserStock = (props) => (
           {(100 * (props.stockSummary.current_share_price - props.stockSummary.avg_share_price) / props.stockSummary.avg_share_price).toFixed(2) + '%'}
         </div>
     </div>
+    <div>
+      <SummaryComparison marketData={props.marketData} stockSummary={props.stockSummary} />
+    </div>
     <div className="user-stocks-list">
       { props.stockSummary.individual_purchases.map(purchase => 
-        <Purchase key={purchase.id} purchase={purchase} stockSummary={props.stockSummary}/> 
+        <Purchase key={purchase.id} marketData={props.marketData} purchase={purchase} stockSummary={props.stockSummary}/> 
       )}
     </div>
   </div>

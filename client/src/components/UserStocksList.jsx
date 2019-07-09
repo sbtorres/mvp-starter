@@ -13,7 +13,7 @@ const UserStocksList = (props) => (
       <h4 className="left-header-col-6">Total Gain</h4>
     </div>
     <div className="user-stocks-list">
-      {Object.keys(props.stockSummary).map(stockData => <UserStock key={stockData} stockSummary={props.stockSummary[stockData]} purchases={props.purchases} />)}
+      {Object.keys(props.stockSummary).map(stockData => <UserStock key={stockData} marketData={props.marketData} stockSummary={props.stockSummary[stockData]} purchases={props.purchases} />)}
     </div>
   </div>
 )

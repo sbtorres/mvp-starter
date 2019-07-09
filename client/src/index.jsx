@@ -129,24 +129,24 @@ class App extends React.Component {
   }
 
   render () {
-    const ComparisonData = (<ComparisonList purchases={this.state.purchases} marketData={this.state.marketData}/>)
-    const UserStocks = (<UserStocksList stockSummary={this.state.stockSummary} purchases={this.state.purchases}/>)
+    // const ComparisonData = (<ComparisonList stockSummary={this.state.stockSummary} marketData={this.state.marketData}/>)
+    const UserStocks = (<UserStocksList marketData={this.state.marketData} stockSummary={this.state.stockSummary} />)
     const Portfolio= (<PortfolioOverview userPortfolio={this.state.userPortfolio} />)
     return (
       <div>
         <div id="portfolio-overview">
-          {this.state.purchases.length > 1 && this.state.marketData.length > 1 ? Portfolio : (<div></div>)}
+          {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? Portfolio : (<div></div>)}
         </div>
         <div id="market-overview-panel">
           <MarketOverview marketData={this.state.marketData}/>
         </div>
         <div id="stock-comparison-module">
           <div id="left-module">
-            {this.state.purchases.length > 1 && this.state.marketData.length > 1 ? UserStocks : (<div></div>)}
+            {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? UserStocks : (<div></div>)}
           </div>
-          <div id="right-module">
-            {this.state.purchases.length > 1 && this.state.marketData.length > 1 ? ComparisonData : (<div></div>)}
-          </div>
+          {/* <div id="right-module">
+            {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? ComparisonData : (<div></div>)}
+          </div> */}
         </div>
         <div style={{"display": "flex", "width": "40%", "justifyContent": "center", "paddingTop": "20px"}}>
           <button className="add-stock-button" onClick={this.handleStockPurchaseClick}>Add A Stock!</button>

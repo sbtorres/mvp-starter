@@ -10,7 +10,7 @@ const ComparisonList = (props) => (
       <h4 className="right-header-col-3">vs. DOW</h4>
     </div>
     <div className="comparison-list">
-      <Comparison purchases={props.purchases} marketData={props.marketData}/>
+      <Comparison stockSummary={props.stockSummary} marketData={props.marketData}/>
     </div>
   </div>
 )
