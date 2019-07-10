@@ -2,7 +2,7 @@ import React from 'react';
 import Comparison from './Comparison.jsx';
 
 const Purchase = (props) => (
-  <div>
+  <div className="stocks-container">
     <div className="user-stock">
         <div className="user-stock-ticker">
           { props.purchase.stock_ticker }
@@ -23,7 +23,7 @@ const Purchase = (props) => (
           {(100 * (props.stockSummary.current_share_price - props.purchase.share_price) / props.purchase.share_price).toFixed(2) + '%'}
         </div>
     </div>
-    <div>
+    <div className="comparison-list">
       <Comparison marketData={props.marketData} stockSummary={props.stockSummary} purchase={props.purchase} />
     </div>
   </div>
