@@ -38,7 +38,7 @@ const UserStock = (props) => {
       </div>
       </div>
         {arePurchasesVisible && 
-            <div>
+            <div>&emsp;&emsp;Purchase Date: 
               { props.stockSummary.individual_purchases.map(purchase => 
                 <Purchase key={purchase.id} marketData={props.marketData} purchase={purchase} stockSummary={props.stockSummary}/> 
               )}

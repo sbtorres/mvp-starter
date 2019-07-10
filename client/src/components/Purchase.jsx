@@ -1,11 +1,12 @@
 import React from 'react';
 import Comparison from './Comparison.jsx';
+import moment from 'moment';
 
 const Purchase = (props) => (
   <div className="stocks-container">
-    <div className="user-stock">
+    <div className="individual-purchase">
         <div className="user-stock-ticker">
-          { props.purchase.stock_ticker }
+          { moment(props.purchase.date_purchased).format('l') }
         </div>
         <div className="user-num-shares">
           { props.purchase.num_of_shares }
