@@ -97,16 +97,16 @@ class App extends React.Component {
   handleUserStockInput(submittedPurchase) {
     let date = submittedPurchase.date_purchased;
     submittedPurchase.stock_ticker = submittedPurchase.stock_ticker.toUpperCase();
-    axios.get(`http://localhost:3000/historicalData/VOO/${date}`)
+    axios.get(`/historicalData/VOO/${date}`)
       .then((historicalData) => {
         submittedPurchase.sp500_price = historicalData.data[0].close;
-        axios.get(`http://localhost:3000/historicalData/QQQ/${date}`)
+        axios.get(`/historicalData/QQQ/${date}`)
         .then((historicalData) => {
           submittedPurchase.nasdaq_price = historicalData.data[0].close;
-          axios.get(`http://localhost:3000/historicalData/DIA/${date}`)
+          axios.get(`/historicalData/DIA/${date}`)
           .then((historicalData) => {
             submittedPurchase.dow_price = historicalData.data[0].close;
-            axios.post(`http://localhost:3000/purchases/1`, submittedPurchase)
+            axios.post(`/purchases/1`, submittedPurchase)
             .then(() => {
               this.componentDidMount();
             })
