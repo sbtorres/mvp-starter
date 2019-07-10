@@ -1,10 +1,10 @@
 var mysql = require('mysql');
 
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : '',
-  database : 'stock_tracker'
+  host     : env('DB_HOST') || 'localhost',
+  user     : env('DB_USERNAME') || 'root',
+  password : env('DB_PASSWORD') || '',
+  database : env('DB_DATABASE') || 'stock_tracker'
 });
 
 var getPurchases = function(userId, callback) {
