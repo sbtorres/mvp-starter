@@ -26,7 +26,7 @@ class App extends React.Component {
 
   componentDidMount() {
     let updatedPurchases = [];
-    axios.get('http://localhost:3000/purchases/1')
+    axios.get('/purchases/1')
       .then((purchases) => {
         this.setState({stockSummary: purchases.data.stockSummary});
         
