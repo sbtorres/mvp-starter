@@ -14,6 +14,7 @@ const UserStock = (props) => {
     <div>
       <div className="stocks-container">
         <div className="user-stock" onClick={handleStockClick}>
+          <div className="stock-summary-container">
             <div className="user-stock-ticker">
               { props.stockSummary.stock_ticker }
             </div>
@@ -32,18 +33,20 @@ const UserStock = (props) => {
             <div className="stock-percent-gain">
               {(100 * (props.stockSummary.current_share_price - props.stockSummary.avg_share_price) / props.stockSummary.avg_share_price).toFixed(2) + '%'}
             </div>
-        </div>
-      <div className="comparison-list">
-        <SummaryComparison marketData={props.marketData} stockSummary={props.stockSummary} />
-      </div>
-      </div>
-        {arePurchasesVisible && 
-            <div>&emsp;&emsp;Purchase Date: 
-              { props.stockSummary.individual_purchases.map(purchase => 
-                <Purchase key={purchase.id} marketData={props.marketData} purchase={purchase} stockSummary={props.stockSummary}/> 
-              )}
+            <div className="comparison-list">
+              <SummaryComparison marketData={props.marketData} stockSummary={props.stockSummary} />
             </div>
-        }
+            </div>
+            {arePurchasesVisible && 
+              <div className="individual-purchase-container">
+                { props.stockSummary.individual_purchases.map(purchase => 
+                  <Purchase key={purchase.id} marketData={props.marketData} purchase={purchase} stockSummary={props.stockSummary}/> 
+                )}
+              </div>
+            }
+        </div>
+
+      </div>
     </div>
   )
 }
