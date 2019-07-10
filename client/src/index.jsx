@@ -4,7 +4,6 @@ import 'babel-polyfill';
 import PortfolioOverview from './components/PortfolioOverview.jsx';
 import MarketOverview from './components/MarketOverview.jsx';
 import UserStocksList from './components/UserStocksList.jsx';
-import ComparisonList from './components/ComparisonList.jsx';
 import StockInputForm from './components/StockInputForm.jsx';
 import axios from 'axios';
 
@@ -129,7 +128,6 @@ class App extends React.Component {
   }
 
   render () {
-    // const ComparisonData = (<ComparisonList stockSummary={this.state.stockSummary} marketData={this.state.marketData}/>)
     const UserStocks = (<UserStocksList marketData={this.state.marketData} stockSummary={this.state.stockSummary} />)
     const Portfolio= (<PortfolioOverview userPortfolio={this.state.userPortfolio} />)
     return (
@@ -144,9 +142,6 @@ class App extends React.Component {
           <div id="left-module">
             {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? UserStocks : (<div></div>)}
           </div>
-          {/* <div id="right-module">
-            {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? ComparisonData : (<div></div>)}
-          </div> */}
         </div>
         <div style={{"display": "flex", "width": "40%", "justifyContent": "center", "paddingTop": "20px"}}>
           <button className="add-stock-button" onClick={this.handleStockPurchaseClick}>Add A Stock!</button>
