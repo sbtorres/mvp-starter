@@ -2,7 +2,7 @@ import React from 'react';
 
 const MarketOverview = (props) => (
   <div>
-    <h2 style={{"display": "flex", "justifyContent": "center", "margin": "5px 5px"}}>Market Overview</h2>
+    <h2 style={{"display": "flex", "justifyContent": "center", "margin": "5px 5px"}}>Current Market Overview</h2>
     <div className="top-headers">
       {props.marketData.map((tickerData, index) => {
         return (
