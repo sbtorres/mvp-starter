@@ -1,5 +1,5 @@
 # MyIndex
-[Link to MyIndex](https://gentle-scrubland-53705.herokuapp.com/)
+[Link to MyIndex](https://myindexstocktracking.herokuapp.com/)
 
 ## Stack ## 
 Front End - Javascript ES6+, React.js
