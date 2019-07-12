@@ -1,10 +1,10 @@
 import React from 'react';
 import 'babel-polyfill';
 import NavBar from './Navbar.jsx';
-import PortfolioOverview from './components/PortfolioOverview.jsx';
-import MarketOverview from './components/MarketOverview.jsx';
-import UserStocksList from './components/UserStocksList.jsx';
-import StockInputForm from './components/StockInputForm.jsx';
+import PortfolioOverview from './PortfolioOverview.jsx';
+import MarketOverview from './MarketOverview.jsx';
+import UserStocksList from './UserStocksList.jsx';
+import StockInputForm from './StockInputForm.jsx';
 import axios from 'axios';
 
 class App extends React.Component {

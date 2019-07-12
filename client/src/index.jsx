@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App.jsx';
-import * as serviceWorker from "./serviceWorker";
 import { Auth0Provider } from "./authenticationWrapper.js";
-import config from "./auth_config.json";
+import config from "./config/auth_config.js";
 
 const onRedirectCallback = appState => {
   window.history.replaceState(
@@ -26,5 +25,3 @@ ReactDOM.render(
   </Auth0Provider>,
   document.getElementById("app")
 );
-
-serviceWorker.unregister();
