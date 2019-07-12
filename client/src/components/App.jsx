@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import 'babel-polyfill';
+import NavBar from './Navbar.jsx';
 import PortfolioOverview from './components/PortfolioOverview.jsx';
 import MarketOverview from './components/MarketOverview.jsx';
 import UserStocksList from './components/UserStocksList.jsx';
@@ -132,6 +132,7 @@ class App extends React.Component {
     const Portfolio= (<PortfolioOverview userPortfolio={this.state.userPortfolio} />)
     return (
       <div>
+        <NavBar />
         <div id="portfolio-overview">
           {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? Portfolio : (<div></div>)}
         </div>
