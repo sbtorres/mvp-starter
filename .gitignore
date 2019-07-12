@@ -12,3 +12,6 @@ data/
 
 # MySQL Dump File for Heroku
 stock_dump.sql
+
+#Auth0 config file
+client/src/config/auth_config.js
