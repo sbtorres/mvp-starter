@@ -7,6 +7,7 @@ import MarketOverview from './MarketOverview.jsx';
 import UserStocksList from './UserStocksList.jsx';
 import StockInputForm from './StockInputForm.jsx';
 import axios from 'axios';
+import { Auth0Context } from ".././authenticationWrapper.js";
 
 class App extends React.Component {
   constructor(props) {
@@ -25,8 +26,9 @@ class App extends React.Component {
     this.calculateTotalsAndSetState = this.calculateTotalsAndSetState.bind(this);
   }
 
+  static contextType = Auth0Context;
+
   componentDidMount() {
-    let updatedPurchases = [];
     axios.get('/purchases/1')
       .then((purchases) => {
         this.setState({stockSummary: purchases.data.stockSummary});
