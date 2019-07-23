@@ -5,6 +5,8 @@ class GoogleAuthentication extends React.Component {
   constructor(props) {
     super(props);
     this.state = { isSignedIn: null };
+
+    this.onAuthChange = this.onAuthChange.bind(this);
   }
 
   componentDidMount() {
@@ -15,8 +17,13 @@ class GoogleAuthentication extends React.Component {
       }).then(() => {
         this.auth = window.gapi.auth2.getAuthInstance();
         this.setState({ isSignedIn: this.auth.isSignedIn.get() });
+        this.auth.isSignedIn.listen(this.onAuthChange);
       })
     });
+  }
+
+  onAuthChange() {
+    this.setState({ isSignedIn: this.auth.isSignedIn.get() });
   }
 
   render() {
