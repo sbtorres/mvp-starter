@@ -21,6 +21,16 @@ h3 {
   font-weight: 400;
 }
 
+.header {
+  display: flex;
+  flex-direction: row;
+}
+
+.sign-in-button {
+  display: flex;
+  margin-left: auto;
+}
+
 #market-overview-panel {
   background-color: #e4e4e4;
   margin-bottom: 20px;

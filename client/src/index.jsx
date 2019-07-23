@@ -132,6 +132,13 @@ class App extends React.Component {
     const Portfolio= (<PortfolioOverview userPortfolio={this.state.userPortfolio} />)
     return (
       <div>
+        <div class="header">
+          <img src="icon.png" alt="app-logo" height="36" width="36"></img>
+          <h1>MyIndex</h1>
+          <div class="sign-in-button">
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          </div>
+        </div>
         <div id="portfolio-overview">
           {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? Portfolio : (<div></div>)}
         </div>
