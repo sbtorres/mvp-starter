@@ -1,4 +1,5 @@
 import React from 'react';
+import CLIENT_ID from '../../config/clientId.js';
 
 class GoogleAuthentication extends React.Component {
   constructor(props) {
@@ -7,7 +8,12 @@ class GoogleAuthentication extends React.Component {
   }
 
   componentDidMount() {
-    window.gapi.load('client:auth2');
+    window.gapi.load('client:auth2', () => {
+      window.gapi.client.init({
+        clientId: CLIENT_ID,
+        scope: 'email'
+      })
+    });
   }
 
   render() {
