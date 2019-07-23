@@ -6,6 +6,10 @@ class GoogleAuthentication extends React.Component {
     this.state = {};
   }
 
+  componentDidMount() {
+    window.gapi.load('client:auth2');
+  }
+
   render() {
     return (
       <div className="sign-in-button">
