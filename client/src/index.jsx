@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'babel-polyfill';
+import GoogleAuthentication from './components/GoogleAuthentication.jsx';
 import PortfolioOverview from './components/PortfolioOverview.jsx';
 import MarketOverview from './components/MarketOverview.jsx';
 import UserStocksList from './components/UserStocksList.jsx';
@@ -132,12 +133,10 @@ class App extends React.Component {
     const Portfolio= (<PortfolioOverview userPortfolio={this.state.userPortfolio} />)
     return (
       <div>
-        <div class="header">
+        <div className="header">
           <img src="icon.png" alt="app-logo" height="36" width="36"></img>
           <h1>MyIndex</h1>
-          <div class="sign-in-button">
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-          </div>
+          <GoogleAuthentication />
         </div>
         <div id="portfolio-overview">
           {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? Portfolio : (<div></div>)}
