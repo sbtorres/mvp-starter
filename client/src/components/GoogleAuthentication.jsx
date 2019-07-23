@@ -1,5 +1,6 @@
 import React from 'react';
 import CLIENT_ID from '../../config/clientId.js';
+import { isNull } from 'util';
 
 class GoogleAuthentication extends React.Component {
   constructor(props) {
@@ -7,6 +8,7 @@ class GoogleAuthentication extends React.Component {
     this.state = { isSignedIn: null };
 
     this.onAuthChange = this.onAuthChange.bind(this);
+    this.renderAuthButton = this.renderAuthButton.bind(this);
   }
 
   componentDidMount() {
@@ -26,10 +28,30 @@ class GoogleAuthentication extends React.Component {
     this.setState({ isSignedIn: this.auth.isSignedIn.get() });
   }
 
+  renderAuthButton() {
+    if (this.state.isSignedIn === null) {
+      return null;
+    } else if (this.state.isSignedIn) {
+      return(
+        <button className="ui red google button">
+          <i className="google icon" />
+          Sign Out
+        </button>
+      )
+    } else {
+      return (
+        <button className="ui red google button">
+        <i className="google icon" />
+        Sign In With Google
+        </button>
+      )
+    }
+  }
+
   render() {
     return (
       <div className="sign-in-button">
-        <div className="g-signin2" data-onsuccess="onSignIn"></div>
+        {this.renderAuthButton()}
       </div>
     )
   }
