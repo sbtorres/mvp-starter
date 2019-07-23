@@ -4,7 +4,7 @@ import CLIENT_ID from '../../config/clientId.js';
 class GoogleAuthentication extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { isSignedIn: null };
   }
 
   componentDidMount() {
@@ -12,6 +12,9 @@ class GoogleAuthentication extends React.Component {
       window.gapi.client.init({
         clientId: CLIENT_ID,
         scope: 'email'
+      }).then(() => {
+        this.auth = window.gapi.auth2.getAuthInstance();
+        this.setState({ isSignedIn: this.auth.isSignedIn.get() });
       })
     });
   }
