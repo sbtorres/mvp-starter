@@ -1,6 +1,5 @@
 import React from 'react';
 import CLIENT_ID from '../../config/clientId.js';
-import { isNull } from 'util';
 
 class GoogleAuthentication extends React.Component {
   constructor(props) {
@@ -60,7 +59,7 @@ class GoogleAuthentication extends React.Component {
 
   render() {
     return (
-      <div className="sign-in-button">
+      <div className="auth-button-container">
         {this.renderAuthButton()}
       </div>
     )

@@ -26,7 +26,7 @@ h3 {
   flex-direction: row;
 }
 
-.sign-in-button {
+.auth-button-container {
   display: flex;
   margin-left: auto;
 }
