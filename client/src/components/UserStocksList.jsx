@@ -8,15 +8,15 @@ const UserStocksList = (props) => (
       <h2 className="stocks-right-header">vs. Index Funds</h2>
     </div>
     <div className="header">
-      <h5 className="left-header-col-1">Ticker</h5>
-      <h5 className="left-header-col-2">Number of Shares</h5>
-      <h5 className="left-header-col-3">Purchase Price</h5>
-      <h5 className="left-header-col-4">Current Share Price</h5>
-      <h5 className="left-header-col-5">Total</h5>
-      <h5 className="left-header-col-6">Total Gain</h5>
-      <h5 className="right-header-col-1">vs. S&amp;P 500</h5>
-      <h5 className="right-header-col-2">vs. NASDAQ</h5>
-      <h5 className="right-header-col-3">vs. DOW</h5>
+      <h3 className="left-header-col-1">Ticker</h3>
+      <h3 className="left-header-col-2">Number of Shares</h3>
+      <h3 className="left-header-col-3">Purchase Price</h3>
+      <h3 className="left-header-col-4">Current Share Price</h3>
+      <h3 className="left-header-col-5">Total</h3>
+      <h3 className="left-header-col-6">Total Gain</h3>
+      <h3 className="right-header-col-1">vs. S&amp;P 500</h3>
+      <h3 className="right-header-col-2">vs. NASDAQ</h3>
+      <h3 className="right-header-col-3">vs. DOW</h3>
     </div>
 
     <div className="user-stocks-list">
