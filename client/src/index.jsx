@@ -133,9 +133,9 @@ class App extends React.Component {
     const Portfolio= (<PortfolioOverview userPortfolio={this.state.userPortfolio} />)
     return (
       <div>
-        <div className="header">
+        <div className="app-header">
           <img src="icon.png" alt="app-logo" height="36" width="36"></img>
-          <h1>MyIndex</h1>
+          <h1 className="app-title">MyIndex</h1>
           <GoogleAuthentication />
         </div>
         <div id="portfolio-overview">
@@ -144,8 +144,8 @@ class App extends React.Component {
         <div id="market-overview-panel">
           <MarketOverview marketData={this.state.marketData}/>
         </div>
-        <div id="stock-comparison-module">
-          <div id="left-module">
+        <div id="stock-comparison-container">
+          <div id="stock-comparison-module">
             {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? UserStocks : (<div></div>)}
           </div>
         </div>
