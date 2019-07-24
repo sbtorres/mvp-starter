@@ -3,7 +3,7 @@ import React from 'react';
 const PortfolioOverview = (props) => {
   return (
     <div>
-      <h2 style={{"display": "flex", "justifyContent": "center", "margin": "5px 5px"}}>Portfolio Overview</h2>
+      <h2 style={{"display": "flex", "justifyContent": "center", "margin": "0px 0px 10px 0px"}}>Portfolio Overview</h2>
       <div className="top-headers">
         <div className="portfolio-column-1">
           <strong>Current Net Worth:&nbsp;</strong>
