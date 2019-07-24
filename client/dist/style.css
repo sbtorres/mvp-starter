@@ -21,16 +21,36 @@ h3 {
   font-weight: 400;
 }
 
+.app-header {
+  display: flex;
+  font-size: 20px;
+  color: #000;
+  margin: 15px 20px;
+  height: 30px;
+  align-items: center;
+}
+
+.app-title {
+  margin: 0px;
+}
+
+.auth-button-container {
+  display: flex;
+  margin-left: auto;
+}
+
 #market-overview-panel {
   background-color: #e4e4e4;
-  margin-bottom: 20px;
+  margin: 20px;
   box-shadow: 0px 0px 4px 4px #777777;
+  padding: 10px 0px;
 }
 
 #portfolio-overview {
   background-color: #e4e4e4;
-  margin-bottom: 20px;
+  margin: 20px;
   box-shadow: 0px 0px 4px 4px #777777;
+  padding: 10px 0px;
 }
 
 .top-headers {
@@ -41,8 +61,8 @@ h3 {
 }
 
 .index-fund-column {
-  width: 200px;
-  margin: 5px 0px;
+  margin: 0px;
+  padding: 0px;
   font-size: 24px;
 }
 
@@ -88,23 +108,23 @@ h3 {
 
 .index-fund-ticker {
   display: inline-block;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .index-fund-price {
   display: inline-block;
 }
-#stock-comparison-module {
+#stock-comparison-container {
   display: flex;
   flex-direction: row;
 }
 
-#left-module {
+#stock-comparison-module {
   display: flex;
   width: 100%;
   justify-content: center;
   background-color: #e4e4e4;
-  margin-right: 2%;
+  margin: 0px 20px 20px 20px;
   box-shadow: 0px 0px 4px 4px #777777;
 }
 
@@ -127,36 +147,42 @@ h3 {
   width: 11%;
   padding-left: 15px;
   justify-content: center;
+  margin: 0px;
 }
 
 .left-header-col-2 {
   display: flex;
   width: 15%;
   justify-content: center;
+  margin: 0px;
 }
 
 .left-header-col-3 {
   display: flex;
   width: 10%;
   justify-content: center;
+  margin: 0px;
 }
 
 .left-header-col-4 {
   display: flex;
   width: 15%;
   justify-content: center;
+  margin: 0px;
 }
 
 .left-header-col-5 {
   display: flex;
   width: 10%;
   justify-content: center;
+  margin: 0px;
 }
 
 .left-header-col-6 {
   display: flex;
   width: 10%;
   justify-content: center;
+  margin: 0px;
 }
 
 .right-header-col-1 {
@@ -164,18 +190,21 @@ h3 {
   width: 9%;
   padding-left: 15px;
   justify-content: center;
+  margin: 0px;
 }
 
 .right-header-col-2 {
   display: flex;
   width: 10%;
   justify-content: center;
+  margin: 0px;
 }
 
 .right-header-col-3 {
   display: flex;
   width: 10%;
   justify-content: center;
+  margin: 0px;
 }
 
 .stocks-container {
@@ -191,11 +220,13 @@ h3 {
 .stocks-left-header {
   display: flex;
   width: 60%;
+  margin: 10px 0px 0px 0px !important;
 }
 
 .stocks-right-header {
   display: flex;
   width: 40%;
+  margin: 10px 0px 0px 0px !important;
 }
 
 .user-stock {

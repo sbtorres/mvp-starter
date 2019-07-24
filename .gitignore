@@ -9,3 +9,6 @@ client/dist/bundle.js
 
 # CSV Data Files for MySQL
 data/
+
+# Google API Key
+client/config/clientId.js
