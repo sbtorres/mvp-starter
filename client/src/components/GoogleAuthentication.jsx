@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { signIn, signOut } from '../actions/index.js';
 import CLIENT_ID from '../../config/clientId.js';
 
 class GoogleAuthentication extends React.Component {
@@ -66,4 +68,7 @@ class GoogleAuthentication extends React.Component {
   }
 }
 
-export default GoogleAuthentication;
+export default connect(
+  null, 
+  { signIn, signOut }
+)(GoogleAuthentication);
