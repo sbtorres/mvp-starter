@@ -27,8 +27,12 @@ class GoogleAuthentication extends React.Component {
     });
   }
 
-  onAuthChange() {
-    this.setState({ isSignedIn: this.auth.isSignedIn.get() });
+  onAuthChange(isSignedIn) {
+    if (isSignedIn) {
+      this.props.signIn();
+    } else {
+      this.props.signOut();
+    }
   }
 
   renderAuthButton() {
