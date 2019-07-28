@@ -9,7 +9,7 @@ var connection = mysql.createPool({
 });
 
 var getPurchases = function(userId, callback) {
-  const query = 'SELECT * FROM purchases WHERE user_id = ' + connection.escape(userId);
+  const query = 'SELECT * FROM purchases WHERE user_id = (SELECT id FROM users WHERE goog_id = ' + connection.escape(userId) + ')';
   connection.query(query, function(err, results) {
     if(err) {
       callback(err, null);

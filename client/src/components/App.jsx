@@ -22,11 +22,12 @@ class App extends React.Component {
     this.hideStockPurchaseModal = this.hideStockPurchaseModal.bind(this);
     this.handleUserStockInput = this.handleUserStockInput.bind(this);
     this.calculateTotalsAndSetState = this.calculateTotalsAndSetState.bind(this);
+    this.getUserStocks = this.getUserStocks.bind(this);
   }
 
-  componentDidMount() {
+  getUserStocks(userId) {
     let updatedPurchases = [];
-    axios.get('/purchases/1')
+    axios.get(`/purchases/${userId}`)
       .then((purchases) => {
         this.setState({stockSummary: purchases.data.stockSummary});
         
@@ -62,8 +63,6 @@ class App extends React.Component {
       nasdaqCurrentTotal: 0,
       dowCurrentTotal: 0
     }
-
-    console.log(purchases);
     
     for (let key in purchases) {
       for (let i = 0; i < purchases[key].individual_purchases.length; i++) {
@@ -135,7 +134,7 @@ class App extends React.Component {
         <div className="app-header">
           <img src="icon.png" alt="app-logo" height="36" width="36"></img>
           <h1 className="app-title">MyIndex</h1>
-          <GoogleAuthentication />
+          <GoogleAuthentication getUserStocks={this.getUserStocks}/>
         </div>
         <div id="portfolio-overview">
           {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? Portfolio : (<div></div>)}
