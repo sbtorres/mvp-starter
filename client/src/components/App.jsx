@@ -16,6 +16,7 @@ class App extends React.Component {
       marketData: [],
       userPortfolio: {},
       stockPurchaseModalIsVisible: false,
+      userId: '',
     }
 
     this.handleStockPurchaseClick = this.handleStockPurchaseClick.bind(this);
@@ -26,8 +27,13 @@ class App extends React.Component {
     this.handleUserSignOut = this.handleUserSignOut.bind(this);
   }
 
+  componentDidMount() {
+    this.getUserStocks('1');
+  }
+
   getUserStocks(userId) {
     let updatedPurchases = [];
+    this.setState({ userId: userId });
     axios.get(`/purchases/${userId}`)
       .then((purchases) => {
         this.setState({stockSummary: purchases.data.stockSummary});
@@ -83,12 +89,7 @@ class App extends React.Component {
   }
 
   handleUserSignOut() {
-    this.setState({
-      purchases: [],
-      stockSummary: [],
-      marketData: [],
-      userPortfolio: {},
-    })
+    this.getUserStocks('1');
   }
 
   handleStockPurchaseClick() {
@@ -146,6 +147,9 @@ class App extends React.Component {
           <h1 className="app-title">MyIndex</h1>
           <GoogleAuthentication getUserStocks={this.getUserStocks} handleUserSignOut={this.handleUserSignOut}/>
         </div>
+        {this.state.userId === '1' && 
+          <div id="sandbox-message">This is the sandbox mode. Feel free to play around. If you want to persist your stock purchases, please sign in with Google above.</div>
+        }
         {Object.keys(this.state.stockSummary).length > 1 && 
           <div>
             <div id="portfolio-overview">
