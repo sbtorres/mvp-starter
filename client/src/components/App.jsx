@@ -23,6 +23,7 @@ class App extends React.Component {
     this.handleUserStockInput = this.handleUserStockInput.bind(this);
     this.calculateTotalsAndSetState = this.calculateTotalsAndSetState.bind(this);
     this.getUserStocks = this.getUserStocks.bind(this);
+    this.handleUserSignOut = this.handleUserSignOut.bind(this);
   }
 
   getUserStocks(userId) {
@@ -81,6 +82,15 @@ class App extends React.Component {
 
   }
 
+  handleUserSignOut() {
+    this.setState({
+      purchases: [],
+      stockSummary: [],
+      marketData: [],
+      userPortfolio: {},
+    })
+  }
+
   handleStockPurchaseClick() {
     this.setState(prevState => {
       return {stockPurchaseModalIsVisible: !prevState.stockPurchaseModalIsVisible}
@@ -134,7 +144,7 @@ class App extends React.Component {
         <div className="app-header">
           <img src="icon.png" alt="app-logo" height="36" width="36"></img>
           <h1 className="app-title">MyIndex</h1>
-          <GoogleAuthentication getUserStocks={this.getUserStocks}/>
+          <GoogleAuthentication getUserStocks={this.getUserStocks} handleUserSignOut={this.handleUserSignOut}/>
         </div>
         <div id="portfolio-overview">
           {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? Portfolio : (<div></div>)}

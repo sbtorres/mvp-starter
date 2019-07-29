@@ -32,6 +32,7 @@ class GoogleAuthentication extends React.Component {
       this.props.getUserStocks(this.auth.currentUser.get().getId());
     } else {
       this.props.signOut();
+      this.props.handleUserSignOut();
     }
   }
 
