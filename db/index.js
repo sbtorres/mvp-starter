@@ -45,17 +45,29 @@ var getHistoricalData = function(ticker, date, callback) {
 }
 
 const createPurchase = function(user_id, submittedPurchase, callback) {
-  const query = `INSERT INTO purchases 
-    (user_id, stock_ticker, num_of_shares, share_price, date_purchased, sp500_price, nasdaq_price, dow_price)
-    VALUES (${user_id}, "${submittedPurchase.stock_ticker}", ${submittedPurchase.num_of_shares}, ${submittedPurchase.share_price}, "${submittedPurchase.date_purchased}", ${submittedPurchase.sp500_price}, ${submittedPurchase.nasdaq_price}, ${submittedPurchase.dow_price})`;
+  const queryUserId = 'SELECT id from users WHERE goog_id = ' + connection.escape(user_id);
 
-  connection.query(query, function(err) {
+  connection.query(queryUserId, function(err, results) {
     if (err) {
       callback(err);
     } else {
-      callback(null);
+      let queriedId = results[0].id;
+
+      const query = `INSERT INTO purchases 
+      (user_id, stock_ticker, num_of_shares, share_price, date_purchased, sp500_price, nasdaq_price, dow_price)
+      VALUES (${queriedId}, "${submittedPurchase.stock_ticker}", ${submittedPurchase.num_of_shares}, ${submittedPurchase.share_price}, "${submittedPurchase.date_purchased}", ${submittedPurchase.sp500_price}, ${submittedPurchase.nasdaq_price}, ${submittedPurchase.dow_price})`;
+  
+      connection.query(query, function(err) {
+        if (err) {
+          callback(err);
+        } else {
+          callback(null);
+        }
+      });
     }
-  });
+  })
+
+
 };
 
 module.exports = { getPurchases, getHistoricalData, createPurchase };

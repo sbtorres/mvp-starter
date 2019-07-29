@@ -116,9 +116,9 @@ class App extends React.Component {
           axios.get(`/historicalData/DIA/${date}`)
           .then((historicalData) => {
             submittedPurchase.dow_price = historicalData.data[0].close;
-            axios.post(`/purchases/1`, submittedPurchase)
+            axios.post(`/purchases/${this.state.userId}`, submittedPurchase)
             .then(() => {
-              this.componentDidMount();
+              this.getUserStocks(this.state.userId);
             })
             .catch((err) => {
               console.log(err);
