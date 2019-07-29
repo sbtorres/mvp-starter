@@ -146,27 +146,31 @@ class App extends React.Component {
           <h1 className="app-title">MyIndex</h1>
           <GoogleAuthentication getUserStocks={this.getUserStocks} handleUserSignOut={this.handleUserSignOut}/>
         </div>
-        <div id="portfolio-overview">
-          {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? Portfolio : (<div></div>)}
-        </div>
-        <div id="market-overview-panel">
-          <MarketOverview marketData={this.state.marketData}/>
-        </div>
-        <div id="stock-comparison-container">
-          <div id="stock-comparison-module">
-            {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? UserStocks : (<div></div>)}
+        {Object.keys(this.state.stockSummary).length > 1 && 
+          <div>
+            <div id="portfolio-overview">
+              {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? Portfolio : (<div></div>)}
+            </div>
+            <div id="market-overview-panel">
+              <MarketOverview marketData={this.state.marketData}/>
+            </div>
+            <div id="stock-comparison-container">
+              <div id="stock-comparison-module">
+                {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? UserStocks : (<div></div>)}
+              </div>
+            </div>
+            <div style={{"display": "flex", "width": "40%", "justifyContent": "center", "paddingTop": "20px"}}>
+              <button className="add-stock-button" onClick={this.handleStockPurchaseClick}>Add A Stock!</button>
+            </div>
+            <div>
+              <StockInputForm
+                handleUserStockInput={this.handleUserStockInput}
+                hideStockPurchaseModal={this.hideStockPurchaseModal}
+                isVisible={this.state.stockPurchaseModalIsVisible}
+              />
+            </div>
           </div>
-        </div>
-        <div style={{"display": "flex", "width": "40%", "justifyContent": "center", "paddingTop": "20px"}}>
-          <button className="add-stock-button" onClick={this.handleStockPurchaseClick}>Add A Stock!</button>
-        </div>
-        <div>
-          <StockInputForm
-            handleUserStockInput={this.handleUserStockInput}
-            hideStockPurchaseModal={this.hideStockPurchaseModal}
-            isVisible={this.state.stockPurchaseModalIsVisible}
-          />
-        </div>
+        }
       </div>
     )
   }
