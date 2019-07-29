@@ -16,17 +16,25 @@ class App extends React.Component {
       marketData: [],
       userPortfolio: {},
       stockPurchaseModalIsVisible: false,
+      userId: '',
     }
 
     this.handleStockPurchaseClick = this.handleStockPurchaseClick.bind(this);
     this.hideStockPurchaseModal = this.hideStockPurchaseModal.bind(this);
     this.handleUserStockInput = this.handleUserStockInput.bind(this);
     this.calculateTotalsAndSetState = this.calculateTotalsAndSetState.bind(this);
+    this.getUserStocks = this.getUserStocks.bind(this);
+    this.handleUserSignOut = this.handleUserSignOut.bind(this);
   }
 
   componentDidMount() {
+    this.getUserStocks('1');
+  }
+
+  getUserStocks(userId) {
     let updatedPurchases = [];
-    axios.get('/purchases/1')
+    this.setState({ userId: userId });
+    axios.get(`/purchases/${userId}`)
       .then((purchases) => {
         this.setState({stockSummary: purchases.data.stockSummary});
         
@@ -62,8 +70,6 @@ class App extends React.Component {
       nasdaqCurrentTotal: 0,
       dowCurrentTotal: 0
     }
-
-    console.log(purchases);
     
     for (let key in purchases) {
       for (let i = 0; i < purchases[key].individual_purchases.length; i++) {
@@ -80,6 +86,10 @@ class App extends React.Component {
       userPortfolio: userPortfolio,
     })
 
+  }
+
+  handleUserSignOut() {
+    this.getUserStocks('1');
   }
 
   handleStockPurchaseClick() {
@@ -106,9 +116,9 @@ class App extends React.Component {
           axios.get(`/historicalData/DIA/${date}`)
           .then((historicalData) => {
             submittedPurchase.dow_price = historicalData.data[0].close;
-            axios.post(`/purchases/1`, submittedPurchase)
+            axios.post(`/purchases/${this.state.userId}`, submittedPurchase)
             .then(() => {
-              this.componentDidMount();
+              this.getUserStocks(this.state.userId);
             })
             .catch((err) => {
               console.log(err);
@@ -135,29 +145,36 @@ class App extends React.Component {
         <div className="app-header">
           <img src="icon.png" alt="app-logo" height="36" width="36"></img>
           <h1 className="app-title">MyIndex</h1>
-          <GoogleAuthentication />
+          <GoogleAuthentication getUserStocks={this.getUserStocks} handleUserSignOut={this.handleUserSignOut}/>
         </div>
-        <div id="portfolio-overview">
-          {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? Portfolio : (<div></div>)}
-        </div>
-        <div id="market-overview-panel">
-          <MarketOverview marketData={this.state.marketData}/>
-        </div>
-        <div id="stock-comparison-container">
-          <div id="stock-comparison-module">
-            {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? UserStocks : (<div></div>)}
+        {this.state.userId === '1' && 
+          <div id="sandbox-message">This is the sandbox mode. Feel free to play around. If you want to persist your stock purchases, please sign in with Google above.</div>
+        }
+        {Object.keys(this.state.stockSummary).length > 1 && 
+          <div>
+            <div id="portfolio-overview">
+              {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? Portfolio : (<div></div>)}
+            </div>
+            <div id="market-overview-panel">
+              <MarketOverview marketData={this.state.marketData}/>
+            </div>
+            <div id="stock-comparison-container">
+              <div id="stock-comparison-module">
+                {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? UserStocks : (<div></div>)}
+              </div>
+            </div>
+            <div style={{"display": "flex", "width": "40%", "justifyContent": "center", "paddingTop": "20px"}}>
+              <button className="add-stock-button" onClick={this.handleStockPurchaseClick}>Add A Stock!</button>
+            </div>
+            <div>
+              <StockInputForm
+                handleUserStockInput={this.handleUserStockInput}
+                hideStockPurchaseModal={this.hideStockPurchaseModal}
+                isVisible={this.state.stockPurchaseModalIsVisible}
+              />
+            </div>
           </div>
-        </div>
-        <div style={{"display": "flex", "width": "40%", "justifyContent": "center", "paddingTop": "20px"}}>
-          <button className="add-stock-button" onClick={this.handleStockPurchaseClick}>Add A Stock!</button>
-        </div>
-        <div>
-          <StockInputForm
-            handleUserStockInput={this.handleUserStockInput}
-            hideStockPurchaseModal={this.hideStockPurchaseModal}
-            isVisible={this.state.stockPurchaseModalIsVisible}
-          />
-        </div>
+        }
       </div>
     )
   }

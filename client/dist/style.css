@@ -398,4 +398,11 @@ h3 {
   box-shadow: 0px 0px 4px 4px #777777;
 }
 
+#sandbox-message {
+  display: flex;
+  font-size: 24px;
+  font-weight: 700;
+  color: red;
+  justify-content: center;
+}
 

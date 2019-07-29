@@ -1,9 +1,16 @@
 import { SIGN_IN, SIGN_OUT } from './types.js';
 
-export const signIn = (userId) => {
+export const signIn = (userProfile) => {
   return {
     type: SIGN_IN,
-    payload: userId
+    payload: {
+      userId: userProfile.getId(),
+      email: userProfile.getEmail(),
+      fullName: userProfile.getName(),
+      firstName: userProfile.getGivenName(),
+      lastName: userProfile.getFamilyName(),
+      profileImg: userProfile.getImageUrl()
+    }
   };
 };
 
