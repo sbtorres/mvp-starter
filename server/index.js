@@ -13,10 +13,8 @@ app.use(express.static(__dirname + '/../client/dist'));
 const getData = (expectedTickers, callback) => {
   let count = 0;
   for (let key in expectedTickers) {
-    console.log(expectedTickers);
     axios.get(`https://api.iextrading.com/1.0/tops/last?symbols=${key}`)
     .then((currentStockData) => {
-      console.log('in then');
       expectedTickers[key] = currentStockData.data[0].price;
       count++;
       if (count === Object.keys(expectedTickers).length) {
@@ -46,11 +44,8 @@ app.get('/purchases/:id', function (req, res) {
 
       getData(expectedTickers, () => {
         for (let i = 0; i < purchases.length; i++) {
-          console.log('starting map');
           if (sortedPurchases.stockSummary.hasOwnProperty(purchases[i].stock_ticker)) {
             let stockSummaryData = sortedPurchases.stockSummary[purchases[i].stock_ticker];
-            console.log(stockSummaryData);
-            console.log(stockSummaryData.avg_share_price);
             let purchaseRatio = purchases[i].num_of_shares / (purchases[i].num_of_shares + stockSummaryData.num_of_shares);
             stockSummaryData.avg_share_price = (stockSummaryData.avg_share_price * (1 - purchaseRatio)) + (purchases[i].share_price * purchaseRatio);
             stockSummaryData.avg_dow_price = (stockSummaryData.avg_dow_price * (1 - purchaseRatio)) + (purchases[i].dow_price * purchaseRatio);
