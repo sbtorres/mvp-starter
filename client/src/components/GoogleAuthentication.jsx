@@ -11,6 +11,7 @@ class GoogleAuthentication extends React.Component {
     this.renderAuthButton = this.renderAuthButton.bind(this);
     this.onSignIn = this.onSignIn.bind(this);
     this.onSignOut = this.onSignOut.bind(this);
+    this.handleNewUser = this.handleNewUser.bind(this);
   }
 
   componentDidMount() {
@@ -36,6 +37,10 @@ class GoogleAuthentication extends React.Component {
     }
   }
 
+  handleNewUser(){
+    console.log('Clicked!');
+  }
+
   renderAuthButton() {
     if (this.props.isSignedIn === null) {
       return null;
@@ -48,10 +53,13 @@ class GoogleAuthentication extends React.Component {
       )
     } else {
       return (
-        <button className="ui red google button" onClick={this.onSignIn}>
-        <i className="google icon" />
-        Sign In With Google
-        </button>
+        <div>
+          <button className="ui red google button" onClick={this.handleNewUser}>Sign Up</button>
+          <button className="ui red google button" onClick={this.onSignIn}>
+          <i className="google icon" />
+          Sign In With Google
+          </button>
+        </div>
       )
     }
   }
