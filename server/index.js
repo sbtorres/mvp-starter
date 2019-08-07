@@ -36,6 +36,9 @@ app.get('/purchases/:id', function (req, res) {
     if(err) {
       res.status(404).send(err);
     } else {
+      if (purchases.length === 0) {
+        res.status(200).send({stockSummary: {}});
+      }
       for (let i = 0; i < purchases.length; i++) {
         if (!expectedTickers[purchases[i]]) {
           expectedTickers[purchases[i].stock_ticker] = 0;
@@ -96,6 +99,16 @@ app.post('/purchases/:user_id', function (req, res) {
     }
   })
 });
+
+app.post('/users/newUser', function (req, res) {
+  db.createNewUser(req.body, (err) => {
+    if (err) {
+      res.status(422).send(err);
+    } else {
+      res.status(201).send('New User Created!');
+    }
+  })
+})
 
 app.listen(PORT, function() {
   console.log(`listening on port ${PORT}!`);

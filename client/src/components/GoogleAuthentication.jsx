@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { signIn, signOut } from '../actions/index.js';
 import CLIENT_ID from '../../config/clientId.js';
+import Axios from 'axios';
 
 class GoogleAuthentication extends React.Component {
   constructor(props) {
@@ -11,6 +12,8 @@ class GoogleAuthentication extends React.Component {
     this.renderAuthButton = this.renderAuthButton.bind(this);
     this.onSignIn = this.onSignIn.bind(this);
     this.onSignOut = this.onSignOut.bind(this);
+    this.handleSignUpButtonClick = this.handleSignUpButtonClick.bind(this);
+    this.handleNewUser = this.handleNewUser.bind(this);
   }
 
   componentDidMount() {
@@ -22,6 +25,7 @@ class GoogleAuthentication extends React.Component {
         this.auth = window.gapi.auth2.getAuthInstance();
         this.onAuthChange(this.auth.isSignedIn.get());
         this.auth.isSignedIn.listen(this.onAuthChange);
+        this.auth.isSignedIn.listen(this.handleNewUser);
       })
     });
   }
@@ -36,6 +40,25 @@ class GoogleAuthentication extends React.Component {
     }
   }
 
+  handleSignUpButtonClick(){
+    this.auth.signIn();
+  }
+
+  handleNewUser() {
+    let googleProfile = this.auth.currentUser.get().getBasicProfile();
+    let userProfile= {
+      userId: googleProfile.getId(),
+      email: googleProfile.getEmail(),
+      fullName: googleProfile.getName(),
+      firstName: googleProfile.getGivenName(),
+      lastName: googleProfile.getFamilyName(),
+      profileImg: googleProfile.getImageUrl()
+    }
+    Axios.post('users/newUser', userProfile)
+      .then(console.log('success'))
+      .catch(console.log('failed'));
+  }
+
   renderAuthButton() {
     if (this.props.isSignedIn === null) {
       return null;
@@ -48,10 +71,13 @@ class GoogleAuthentication extends React.Component {
       )
     } else {
       return (
-        <button className="ui red google button" onClick={this.onSignIn}>
-        <i className="google icon" />
-        Sign In With Google
-        </button>
+        <div>
+          <button className="ui red google button" onClick={this.handleSignUpButtonClick}>Sign Up</button>
+          <button className="ui red google button" onClick={this.onSignIn}>
+          <i className="google icon" />
+          Sign In With Google
+          </button>
+        </div>
       )
     }
   }

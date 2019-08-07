@@ -66,8 +66,28 @@ const createPurchase = function(user_id, submittedPurchase, callback) {
       });
     }
   })
-
-
 };
 
-module.exports = { getPurchases, getHistoricalData, createPurchase };
+const createNewUser = (profile, callback) => {
+  const query = `SELECT * FROM users where goog_id = '${profile.userId}'`;
+
+  connection.query(query, function(err, results) {
+    if (err) {
+      callback(err);
+    } else if (results.length === 0) {
+      const secondQuery = `INSERT INTO users (goog_id, full_name, first_name, last_name, email, img_url)
+        VALUES ("${profile.userId}", "${profile.fullName}", "${profile.firstName}", "${profile.lastName}", 
+        "${profile.email}", "${profile.profileImg}")`;
+      
+      connection.query(secondQuery, function(err, results) {
+        if (err) {
+          callback(err);
+        } else {
+          callback(null);
+        }
+      })
+    }
+  })
+}
+
+module.exports = { getPurchases, getHistoricalData, createPurchase, createNewUser };
