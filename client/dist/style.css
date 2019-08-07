@@ -406,3 +406,11 @@ h3 {
   justify-content: center;
 }
 
+#no-stocks-message {
+  display: flex;
+  font-size: 24px;
+  font-weight: 700;
+  color: #76c2af;
+  justify-content: center;
+}
+

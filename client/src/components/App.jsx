@@ -150,19 +150,25 @@ class App extends React.Component {
         {this.state.userId === '1' && 
           <div id="sandbox-message">This is the sandbox mode. Feel free to play around. If you want to persist your stock purchases, please sign in with Google above.</div>
         }
-        {Object.keys(this.state.stockSummary).length > 1 && 
+        {Object.keys(this.state.stockSummary).length >= 1 && 
           <div>
             <div id="portfolio-overview">
-              {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? Portfolio : (<div></div>)}
+              {Object.keys(this.state.stockSummary).length >= 1 && this.state.marketData.length > 1 ? Portfolio : (<div></div>)}
             </div>
             <div id="market-overview-panel">
               <MarketOverview marketData={this.state.marketData}/>
             </div>
             <div id="stock-comparison-container">
               <div id="stock-comparison-module">
-                {Object.keys(this.state.stockSummary).length > 1 && this.state.marketData.length > 1 ? UserStocks : (<div></div>)}
+                {Object.keys(this.state.stockSummary).length >= 1 && this.state.marketData.length > 1 ? UserStocks : (<div></div>)}
               </div>
             </div>
+          </div>
+          }
+          {Object.keys(this.state.stockSummary).length < 1 && 
+            <div id="no-stocks-message">Use the add stock button below to add your first purchase!</div>
+          }
+          <div>
             <div style={{"display": "flex", "width": "40%", "justifyContent": "center", "paddingTop": "20px"}}>
               <button className="add-stock-button" onClick={this.handleStockPurchaseClick}>Add A Stock!</button>
             </div>
@@ -174,7 +180,6 @@ class App extends React.Component {
               />
             </div>
           </div>
-        }
       </div>
     )
   }
