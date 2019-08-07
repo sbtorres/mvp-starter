@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { signIn, signOut } from '../actions/index.js';
 import CLIENT_ID from '../../config/clientId.js';
+import Axios from 'axios';
 
 class GoogleAuthentication extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class GoogleAuthentication extends React.Component {
     this.renderAuthButton = this.renderAuthButton.bind(this);
     this.onSignIn = this.onSignIn.bind(this);
     this.onSignOut = this.onSignOut.bind(this);
+    this.handleSignUpButtonClick = this.handleSignUpButtonClick.bind(this);
     this.handleNewUser = this.handleNewUser.bind(this);
   }
 
@@ -23,6 +25,7 @@ class GoogleAuthentication extends React.Component {
         this.auth = window.gapi.auth2.getAuthInstance();
         this.onAuthChange(this.auth.isSignedIn.get());
         this.auth.isSignedIn.listen(this.onAuthChange);
+        this.auth.isSignedIn.listen(this.handleNewUser);
       })
     });
   }
@@ -37,8 +40,15 @@ class GoogleAuthentication extends React.Component {
     }
   }
 
-  handleNewUser(){
-    console.log('Clicked!');
+  handleSignUpButtonClick(){
+    this.auth.signIn();
+  }
+
+  handleNewUser() {
+    let userProfile = this.auth.currentUser.get().getBasicProfile();
+    Axios.post('users/newUser', userProfile)
+      .then(console.log('success'))
+      .catch(console.log('failed'));
   }
 
   renderAuthButton() {
@@ -54,7 +64,7 @@ class GoogleAuthentication extends React.Component {
     } else {
       return (
         <div>
-          <button className="ui red google button" onClick={this.handleNewUser}>Sign Up</button>
+          <button className="ui red google button" onClick={this.handleSignUpButtonClick}>Sign Up</button>
           <button className="ui red google button" onClick={this.onSignIn}>
           <i className="google icon" />
           Sign In With Google
