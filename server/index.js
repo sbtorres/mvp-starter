@@ -36,6 +36,9 @@ app.get('/purchases/:id', function (req, res) {
     if(err) {
       res.status(404).send(err);
     } else {
+      if (purchases.length === 0) {
+        res.status(200).send({stockSummary: {}});
+      }
       for (let i = 0; i < purchases.length; i++) {
         if (!expectedTickers[purchases[i]]) {
           expectedTickers[purchases[i].stock_ticker] = 0;
