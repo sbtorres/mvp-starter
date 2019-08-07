@@ -12,3 +12,9 @@ data/
 
 # Google API Key
 client/config/clientId.js
+
+# MySQL Dump File
+dump.sql 
+
+# Clear DB Setup Documentation
+clearDBSetUp.txt
