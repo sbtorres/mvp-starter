@@ -45,7 +45,15 @@ class GoogleAuthentication extends React.Component {
   }
 
   handleNewUser() {
-    let userProfile = this.auth.currentUser.get().getBasicProfile();
+    let googleProfile = this.auth.currentUser.get().getBasicProfile();
+    let userProfile= {
+      userId: googleProfile.getId(),
+      email: googleProfile.getEmail(),
+      fullName: googleProfile.getName(),
+      firstName: googleProfile.getGivenName(),
+      lastName: googleProfile.getFamilyName(),
+      profileImg: googleProfile.getImageUrl()
+    }
     Axios.post('users/newUser', userProfile)
       .then(console.log('success'))
       .catch(console.log('failed'));
