@@ -97,6 +97,16 @@ app.post('/purchases/:user_id', function (req, res) {
   })
 });
 
+app.post('/users/newUser', function (req, res) {
+  db.createNewUser(req.body, (err) => {
+    if (err) {
+      res.status(422).send(err);
+    } else {
+      res.status(201).send('New User Created!');
+    }
+  })
+})
+
 app.listen(PORT, function() {
   console.log(`listening on port ${PORT}!`);
 });
