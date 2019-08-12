@@ -12,3 +12,12 @@ data/
 
 # Google API Key
 client/config/clientId.js
+
+#Instruction for clearDB set up
+clearDBSetUp.txt
+
+#Sequel Dump File
+dump.sql 
+
+#GoogleAuth Confirmation HTML File
+client/dist/googledb97282749492ef5.html
