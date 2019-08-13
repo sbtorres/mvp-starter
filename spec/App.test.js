@@ -1,8 +1,10 @@
 const axios = require('axios');
 
-test('User with id of 1 returns JSON stock data', done => {
+test('User with id of 1 returns JSON stock data with correct shape', done => {
   const callback = (data) => {
     expect(data).toHaveProperty('stockSummary');
+    expect(data).toHaveProperty('individualPurchases');
+    expect(data).toHaveProperty('stockSummary.AAPL');
     done();
   }
 
@@ -10,5 +12,8 @@ test('User with id of 1 returns JSON stock data', done => {
     .then((results) => {
       callback(results.data);
     })
+    .catch((err) => {
+      console.log(err);
+    })
 
-})
+});
