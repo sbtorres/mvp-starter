@@ -22,9 +22,25 @@ afterAll(() => {
   browser.close();
 });
 
-describe('User portfolio net worth is displayed', () => {
-  test('Net Worth div is appended to DOM', async () => {
+describe('Inital page view is correct', () => {
+  test('portfolio-view component is rendered to DOM', async () => {
     await page.goto(pageUrl, { waituntil: 'networkidle2' });
+    const portfolioView = await page.$('#portfolio-overview');
+    expect(portfolioView).toBeTruthy();
+  })
+  test('market-overview-panel component is rendered to DOM', async () => {
+    const portfolioView = await page.$('#market-overview-panel');
+    expect(portfolioView).toBeTruthy();
+  })
+  test('stock-comparison component is rendered to DOM', async () => {
+    const portfolioView = await page.$('#stock-comparison-container');
+    expect(portfolioView).toBeTruthy();
+  })
+
+})
+
+describe('Porfolio View Component', () => {
+  test('Net Worth div is appended to DOM', async () => {
     const netWorth = await page.$eval('.portfolio-column-1', el => el.innerHTML);
     expect(netWorth).toEqual('<strong>Current Net Worth:&nbsp;</strong>$7,393.38');
   })
