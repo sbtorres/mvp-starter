@@ -42,6 +42,6 @@ describe('Inital page view is correct', () => {
 describe('Porfolio View Component', () => {
   test('Net Worth div is appended to DOM', async () => {
     const netWorth = await page.$eval('.portfolio-column-1', el => el.innerHTML);
-    expect(netWorth).toEqual('<strong>Current Net Worth:&nbsp;</strong>$7,393.38');
+    expect(netWorth).toMatch('Current Net Worth');
   })
 })
